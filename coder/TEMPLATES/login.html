@@ -5,18 +5,23 @@ login
 {% endblock %}
 
 {% block content %}
-    <form action="" method="POST">
-        {% csrf_token %}
-        <div class="form-group">
-            <label for="USERNAME">Usuario</label>
-            <input type="text" class="form-control" name="username">
-            <small id="emailHelp" class="form-text text-muted">Ingrese su nombre de usuario.</small>
-        </div>
-        <div class="form-group">
-            <label for="PASSWORD">Password</label>
-            <input type="password" class="form-control" name="password">
-        </div>
+    <h1 class="prueba">HOLAAA</h1>
+    <main>
+        <div class="login-form-outside">
+            <form class="login-form-inner" action="" method="POST">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="USERNAME">Usuario</label>
+                    <input type="text" class="form-control" name="username">
+                    <small id="emailHelp" class="form-text text-muted">Ingrese su nombre de usuario.</small>
+                </div>
+                <div class="form-group">
+                    <label for="PASSWORD">Password</label>
+                    <input type="password" class="form-control" name="password">
+                </div>
 
-        <button type="submit" class="btn btn-primary">Iniciar sesion</button>
-    </form>
+                <button type="submit" class="btn btn-primary">Iniciar sesion</button>
+            </form>
+        </div>
+    </main>
 {% endblock %}

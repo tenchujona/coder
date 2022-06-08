@@ -5,4 +5,4 @@ from coder.settings import BASE_DIR
 
 def home(request):
     #return HttpResponse(BASE_DIR/"TEMPLATES")
-    return render(request, 'TEMPLATES\index.html')
+    return render(request, 'TEMPLATES/index.html')
