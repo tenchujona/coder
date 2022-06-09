@@ -29,6 +29,19 @@
                 </div>
             </div>
         {% endfor %}
+        {% for empresa in business %}
+            <div class="card" style="width: 18rem;">
+                <img class="card-img-top" src=".../100px180" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">{{empresa.name}}</h5>
+                    <p class="card-text">CEO: {{empresa.CEO}}</p>
+                    <p class="card-text">Correo: {{empresa.email}}</p>
+                    <p class="card-text">Nacimiento: {{empresa.ubicacion}}</p>
+                    <p class="card-text">Número: {{empresa.numero}}</p>
+                    <a href="#" class="btn btn-primary">Contactar a {{empresa.name}}</a>
+                </div>
+            </div>
+        {% endfor %}
     </div>
 {% endblock %}
 
