@@ -18,6 +18,9 @@ from django.urls import include, path
 from coder.views import home
 from app1.views import login
 
+from django.conf import settings
+from django.conf.urls.static import static
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home, name="home"),
