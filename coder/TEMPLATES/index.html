@@ -5,5 +5,10 @@ Home
 {% endblock %}
 
 {% block content %}
+{% if empty %}
+    <div class="alert alert-warning" role="alert">
+        Debe ingresar algo para buscar
+    </div>
+{% endif %}
 aqui va el contenido de la pagina
 {% endblock %}

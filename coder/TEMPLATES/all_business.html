@@ -1,0 +1,24 @@
+{% extends "TEMPLATES/base.html" %}
+
+{% block title %}
+Categoría: Empresas
+{% endblock %}
+
+{% block content %}
+<h5>Todos las Empresas:</h5>
+    <div class="d.flex" style="margin-top:3rem; margin-left:2rem">
+        {% for empresas in business %}
+            <div class="card" style="width: 18rem;">
+                <img class="card-img-top" src=".../100px180" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">{{empresas.name}}</h5>
+                    <p class="card-text">CEO: {{empresas.CEO}}</p>
+                    <p class="card-text">Correo: {{empresas.email}}</p>
+                    <p class="card-text">Ubicación: {{empresas.ubicacion}}</p>
+                    <p class="card-text">Número: {{empresas.gender}}</p>
+                    <a href="#" class="btn btn-primary">Llamer a {{empresas.name}}</a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
