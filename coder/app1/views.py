@@ -2,6 +2,7 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from app1.models import *
 from django.core.exceptions import ObjectDoesNotExist
+from app1.models import Accounts
 
 # Create your views here.
 
@@ -19,3 +20,9 @@ def login(request):
 
     else:
         return render(request, 'TEMPLATES/login.html')
+
+def search_users(request):
+    usuarios = Accounts.objects.filter(username__icontains = request.GET["search"])
+    print(usuarios)
+    context = {"usuarios":usuarios}
+    return render(request, "TEMPLATES/search_users.html", context=context)
