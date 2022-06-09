@@ -5,5 +5,49 @@
 }
 
 .prueba{
-    color: blueviolet;
+    color: red;
+}
+
+.login-form{
+    display: flex;
+    height: 90vh;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.login-form-inner{
+    padding: 15px 15px;
+    background-color:#e9e8ff;
+    width: 35rem;
+    border-radius: 10px;
+}
+
+.create-user-form{
+    width: 70rem;
+}
+
+.create-company-form{
+    width: 90rem;
+}
+
+.user-card-group{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    height: 80vh;
+    flex-direction: column;
+}
+
+.card{
+    padding: 10px 10px;
+    margin: 10px 10px;
+}
+
+.user-card-group-inner{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #e9e8ff;
+    border-radius: 10px;
 }

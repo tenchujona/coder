@@ -5,64 +5,65 @@ login
 {% endblock %}
 
 {% block content %}
-<h5>Crea un Usuario</h5>
-<form class="needs-validation" novalidate action="" method="POST">
-    {% csrf_token %}
-    <div class="form-row">
-      <div class="col-md-6 mb-3">
-        <label for="validationCustom01">Nombre de la Empresa</label>
-        <input type="text" class="form-control" name="name" value="For example S.A.C." required>
-        <div class="valid-feedback">
-          Looks good!
-        </div>
-      </div>
-      <div class="col-md-6 mb-3">
-        <label for="exampleInputEmail1">Email de contacto de la Empresa</label>
-        <input type="email" class="form-control" name="email" aria-describedby="emailHelp" value="forexample@email.com" required>
-        <small id="emailHelp" class="form-text text-muted">No compartiremos sus datos con nadie.</small>
-      </div class="valid-feedback">
+  <div class="login-form">
+    <form class="needs-validation login-form-inner create-company-form" novalidate action="" method="POST">
+      <h1 class="text-center">Registrar una empresa</h1>
+      {% csrf_token %}
 
-    </div>
-    <div class="form-row">
-      <div class="col-md-6 mb-3">
-        <label for="validationCustom03">Nombre completo del CEO de la Empresa</label>
-        <input type="text" class="form-control" name="CEO" required>
-        <div class="invalid-feedback">
-          Please provide a valid name.
+      <div class="form-row">
+        <div class="col-md-6 mb-3">
+          <label for="validationCustom01">Nombre de la Empresa</label>
+          <input type="text" class="form-control" name="name" value="For example S.A.C." required>
+          <div class="valid-feedback">
+            Looks good!
+          </div>
         </div>
-      </div>
-      <div class="col-md-4 mb-3">
-        <label for="validationCustom03">Dirección de la Empresa</label>
-        <input type="text" class="form-control" name="ubicacion" required>
-        <div class="invalid-feedback">
-          Please provide a valid ubication.
-        </div>
+        <div class="col-md-6 mb-3">
+          <label for="exampleInputEmail1">Email de contacto de la Empresa</label>
+          <input type="email" class="form-control" name="email" aria-describedby="emailHelp" value="forexample@email.com" required>
+          <small id="emailHelp" class="form-text text-muted">No compartiremos sus datos con nadie.</small>
+        </div class="valid-feedback">
       </div>
 
-      <div class="col-md-2 mb-2">
-        <label for="validationCustom05">Número de contacto de la empresa</label>
-        <input type="text" class="form-control" name="numero" required>
-        <div class="invalid-feedback">
-          Please provide a valid number.
+      <div class="form-row">
+        <div class="col-md-6 mb-3">
+          <label for="validationCustom03">Nombre completo del CEO de la Empresa</label>
+          <input type="text" class="form-control" name="CEO" required>
+          <div class="invalid-feedback">
+            Please provide a valid name.
+          </div>
+        </div>
+        <div class="col-md-6 mb-3">
+          <label for="validationCustom03">Dirección de la Empresa</label>
+          <input type="text" class="form-control" name="ubicacion" required>
+          <div class="invalid-feedback">
+            Please provide a valid ubication.
+          </div>
         </div>
       </div>
-    </div>
-    
-    </div>
-    <div class="form-group">
-      <div class="form-check">
-        <input class="form-check-input" type="checkbox" value="" name="invalidCheck" required>
-        <label class="form-check-label" for="invalidCheck">
-          Agree to terms and conditions
-        </label>
-        <div class="invalid-feedback">
-          You must agree before submitting.
+
+      <div class="form-row">
+        <div class="form-check col-md-6 mb-3" style="padding-left: 25px;">
+          <input class="form-check-input" type="checkbox" value="" name="invalidCheck" required>
+          <label class="form-check-label" for="invalidCheck">
+            Agree to terms and conditions
+          </label>
+          <div class="invalid-feedback">
+            You must agree before submitting.
+          </div>
+        </div>
+        <div class="col-md-6 mb-3">
+          <label for="validationCustom05">Número de contacto de la empresa</label>
+          <input type="text" class="form-control" name="numero" required>
+          <div class="invalid-feedback">
+            Please provide a valid number.
+          </div>
         </div>
       </div>
-    </div>
-    <button class="btn btn-primary" type="submit">Submit form</button>
-  </form>
-  
+      <button class="btn btn-primary" type="submit">Submit form</button>
+    </form>
+  </div>
+
   <script>
   // Example starter JavaScript for disabling form submissions if there are invalid fields
   (function() {
