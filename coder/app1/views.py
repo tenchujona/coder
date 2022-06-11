@@ -2,31 +2,48 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from app1.forms import *
 from app1.models import *
-from django.core.exceptions import ObjectDoesNotExist
-from app1.models import Accounts
+from app1.models import Data_Users
+from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login, logout
 
 # Create your views here.
 
-def login(request):
-    if request.method == 'POST':
+def login_view(request):
+    if request.method == "POST":
+        print(request.POST)
+        form = AuthenticationForm(request, data = request.POST)
 
-
-        try:
-            Accounts.objects.get(username__contains=request.POST["username"], password__contains=request.POST["password"])
-            request.user = request.POST["username"]
+        if form.is_valid():
+            username = form.cleaned_data["username"]
+            password = form.cleaned_data["password"]
+            
+            user = authenticate(username=username, password=password)
+            
+            if user is not None:
+                login(request, user)
+                context = {"message", f"¡¡Bienvenido {username}!! :)"}
+                print(request.user)
+                return render(request, "TEMPLATES/index.html")
+            else:
+                error = True
+                form = AuthenticationForm()
+                return render(request, "TEMPLATES/login.html", context = error)
+        else:
+            errors = form.errors
+            form = AuthenticationForm()
+            context = {"error":errors, "form":form}
             print(request.user)
-            return render(request, "TEMPLATES/index.html")
-        except ObjectDoesNotExist:
-            return render(request, "TEMPLATES/login.html")
+            return render(request, "TEMPLATES/login.html", context = context)
 
-    else:
-        return render(request, 'TEMPLATES/login.html')
+    form = AuthenticationForm()
+    context = {"form":form}
+    return render(request, "TEMPLATES/login.html", context = context)
 
 def search_view(request):
     if request.GET["search"] != (""):
         usuarios_admin = User.objects.filter(username__icontains = request.GET["search"])
-        usuarios = Accounts.objects.filter(
+        usuarios = Data_Users.objects.filter(
             name__icontains = request.GET["search"],
             username__icontains = request.GET["search"],
             email__icontains = request.GET["search"],
@@ -46,7 +63,7 @@ def search_view(request):
 
 def categori_users(request):
     usuarios_admin = User.objects.all()
-    usuarios = Accounts.objects.all()
+    usuarios = Data_Users.objects.all()
     context = {"usuarios_admin":usuarios_admin, "usuarios":usuarios}
     return render(request, "TEMPLATES/all_users.html", context=context)
 
@@ -60,7 +77,7 @@ def create_user(request):
     if request.method == "POST":
         form = Account_form(request.POST)
         if form.is_valid():
-            new_product = Accounts.objects.create(
+            new_product = Data_Users.objects.create(
                 username = form.cleaned_data["username"],
                 email = form.cleaned_data["email"],
                 password = form.cleaned_data["password"],

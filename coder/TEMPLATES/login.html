@@ -7,6 +7,14 @@ login
 {% block content %}
     <main>
         <div class="login-form">
+            {% if error %}
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    Usuario y/o contraseña incorrecto, por favor vuelva a intentarlo o <a href="/create-user/" class="alert-link">si no tine cuenta registrese aquí.</a>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            {% endif %}
             <form class="login-form-inner" action="" method="POST">
                 {% csrf_token %}
                 <h1 class="text-center">Iniciar sesión</h1>
