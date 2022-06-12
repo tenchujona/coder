@@ -6,15 +6,12 @@ from django.contrib.auth.models import User
 
 class Data_Users(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, max_length=20, unique=True)
-    email = models.EmailField(max_length=30)
-    
-    name = models.CharField(max_length=20)
-    last_name = models.CharField(max_length=20)
     gender = models.CharField(
         max_length=9,
         choices=[("Masculino", "Masculino"),("Femenino", "Femenino")]
     )
     birthday = models.DateField()
+    
     def __str__(self) -> str:
         return self.user.username
 

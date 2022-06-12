@@ -1,14 +1,12 @@
+from tkinter import W
 from django import forms
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
 
-
-class Account_form(forms.Form):
-    username = forms.CharField(max_length=20)
-    email = forms.EmailField(max_length=30)
-    password = forms.CharField(max_length=30)
-    birthday = forms.DateField()
-    name = forms.CharField(max_length=20)
-    last_name = forms.CharField(max_length=20)
-    gender = forms.CharField(max_length=10)
+class Account_form(UserCreationForm):
+    email = forms.EmailField(widget=forms.EmailInput(attrs={'class': 'form-control'}))
+    first_name = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    last_name = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'class': 'form-control'}))
 
 class Empresa_form(forms.Form):
     name = forms.CharField(max_length=70)

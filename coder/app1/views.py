@@ -3,11 +3,42 @@ from django.shortcuts import render
 from app1.forms import *
 from app1.models import *
 from app1.models import Data_Users
-from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 
 # Create your views here.
+
+def create_user(request):
+    if request.method == "POST":
+        form = UserCreationForm(request.POST)
+
+        if form.is_valid():
+
+            form.save()
+            username = form.cleaned_data["username"]
+            password = form.cleaned_data["password1"]
+            InsertId= (User.objects.last()).id
+            print(InsertId)
+            Data_Users.objects.create(user_id =InsertId, birthday = request.POST["birthday"], gender = request.POST["gender"])
+            # User.objects.get(pk=InsertId).update(first_name=request.POST["name"])
+            UsermodelUpdate= User.objects.get(pk=InsertId)
+            UsermodelUpdate.first_name = request.POST["first_name"]
+            UsermodelUpdate.last_name = request.POST["last_name"]
+            UsermodelUpdate.email = request.POST["email"]
+            UsermodelUpdate.save()
+            user = authenticate(username=username, password=password)
+            login(request, user)
+            
+            return render(request, "TEMPLATES/index.html")
+        else:
+            form = UserCreationForm()
+            context = {"form":form}
+            return render(request, "TEMPLATES/create_users.html", context=context)
+    else:
+        form = UserCreationForm()
+        context = {"form":form}
+        return render(request, "TEMPLATES/create_users.html", context=context)
 
 def login_view(request):
     if request.method == "POST":
@@ -73,25 +104,6 @@ def categori_business(request):
     print(business)
     return render(request, "TEMPLATES/all_business.html", context=context)
 
-def create_user(request):
-    if request.method == "POST":
-        form = Account_form(request.POST)
-        if form.is_valid():
-            new_product = Data_Users.objects.create(
-                username = form.cleaned_data["username"],
-                email = form.cleaned_data["email"],
-                password = form.cleaned_data["password"],
-                birthday = form.cleaned_data["birthday"],
-                name = form.cleaned_data["name"],
-                last_name = form.cleaned_data["last_name"],
-                gender = form.cleaned_data["gender"],
-            )
-            context = {"new_product":new_product}
-        return render(request, "TEMPLATES/create_users.html", context=context)
-    else:
-        form = Account_form()
-        context = {"form":form}
-        return render(request, "TEMPLATES/create_users.html", context=context)
 
 def create_business(request):
     if request.method == "GET":
