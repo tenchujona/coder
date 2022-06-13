@@ -5,6 +5,22 @@ login
 {% endblock %}
 
 {% block content %}
+  {% if error %}
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+      <strong>¡Lo sentimos!</strong> Ha ocurrido un error inesperado, por favor recargue la página y vuelva a intentarlo.
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+  {% elif exists %}
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+      <strong>¡Oh no!</strong> parece que el nombre de su empresa ya <strong>se encuentra registrado</strong> Consulte con un administrador para solucionar el problema.
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+  {% endif %}
+
   <div class="login-form">
     <form class="needs-validation login-form-inner create-company-form" novalidate action="" method="POST">
       <h1 class="text-center">Registrar una empresa</h1>

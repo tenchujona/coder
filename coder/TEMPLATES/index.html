@@ -5,10 +5,17 @@ Inicio
 {% endblock %}
 
 {% block content %}
-{% if empty %}
-    <div class="alert alert-warning" role="alert">
-        Debe ingresar algo para buscar
-    </div>
-{% endif %}
-aqui va el contenido de la pagina {{request.user}}
+    {% if empty %}
+        <div class="alert alert-warning" role="alert">
+            Debe ingresar algo para buscar
+        </div>
+    {% endif %}
+    {% if context %}
+        {{message}}
+    {% endif %}
+    {% if request.user.is_authenticated %}
+        ¡¡Bienvenido a <strong>EncuentraLoQueBuscas</strong> {{request.user}}!!
+    {% else %}
+        ¡¡Bienvenido a <strong>EncuentraLoQueBuscas</strong>!!
+    {% endif %}
 {% endblock %}

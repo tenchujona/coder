@@ -4,28 +4,15 @@
     <div class="user-card-group">
         <h1 class="text-center" style="margin: 20px 0px; font-size: 75px;">Resultados de la busqueda:</h1>
         <div class="user-card-group-inner">
-            {% for usuario in usuarios %}
+            {% for usuario in user %}
                 <div class="card" style="width: 18rem;">
                     <img class="card-img-top" src=".../100px180" alt="Card image cap">
                     <div class="card-body">
-                        <h5 class="card-title">{{usuario.name}} {{usuario.last_name}}</h5>
+                        <h5 class="card-title">{{usuario.first_name}} {{usuario.last_name}}</h5>
                         <p class="card-text">Username: {{usuario.username}}</p>
                         <p class="card-text">Correo: {{usuario.email}}</p>
-                        <p class="card-text">Nacimiento: {{usuario.birthday}}</p>
-                        <p class="card-text">Género: {{usuario.gender}}</p>
-                        <a href="#" class="btn btn-primary">Añadir como amigo</a>
-                    </div>
-                </div>
-            {% endfor %}
-            {% for usuario in usuarios_admin %}
-                <div class="card" style="width: 18rem;">
-                    <img class="card-img-top" src=".../100px180" alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title">{{usuario.name}} {{usuario.last_name}}</h5>
-                        <p class="card-text">Username: {{usuario.username}}</p>
-                        <p class="card-text">Correo: {{usuario.email}}</p>
-                        <p class="card-text">Nacimiento: {{usuario.birthday}}</p>
-                        <p class="card-text">Género: {{usuario.gender}}</p>
+                        <p class="card-text">Nacimiento: {{usuario.data_users.birthday}}</p>
+                        <p class="card-text">Género: {{usuario.data_users.gender}}</p>
                         <a href="#" class="btn btn-primary">Añadir como amigo</a>
                     </div>
                 </div>
