@@ -5,6 +5,22 @@ Crear: Usuario
 {% endblock %}
 
 {% block content %}
+  {% if error %}
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+      <strong>¡Lo sentimos!</strong> Ha ocurrido un error inesperado, por favor recargue la página y vuelva a intentarlo. <strong>Nota:</strong> Recuerde usar los caracteres correctos en cada campo.
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+  {% elif exist %}
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+      <strong>¡Oh no!</strong> parece que el nombre de usuario que escogiste <strong>ya existe.</strong> Por favor intente con otro nombre de usuario.
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+  {% endif %}
+
   <div class="login-form">
     <form class="needs-validation login-form-inner create-user-form" novalidate action="" method="POST" enctype="multipart/form-data">
         <h1 class="text-center">Registrar un usuario</h1>
@@ -65,17 +81,6 @@ Crear: Usuario
               <option selected disabled value="">Choose...</option>
               <option>Masculino</option>
               <option>Femenino</option>
-            </select>
-            <div class="invalid-feedback">
-              Please select a valid gender.
-            </div>
-          </div>
-          <div class="col-md-2 mb-2" style="margin-left:2rem">
-            <label for="validationCustom04">Género</label>
-            <select class="custom-select" name="category" required>
-              <option selected disabled value="">Choose...</option>
-              <option>Empresa</option>
-              <option>Usuario</option>
             </select>
             <div class="invalid-feedback">
               Please select a valid gender.

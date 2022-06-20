@@ -25,7 +25,7 @@ class Empresas(models.Model):
     CEO = models.CharField(max_length=40)
     email = models.EmailField(max_length=30)
     ubicacion = models.CharField(max_length=70)
-    numero = models.IntegerField(unique=True)
+    numero = models.CharField(max_length=15, unique=True)
     image = models.ImageField(upload_to="business_image", default="anonymous-business.jpg")
     category = models.ForeignKey("Category", on_delete=models.CASCADE, related_name="Empresas")
 

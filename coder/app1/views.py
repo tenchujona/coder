@@ -13,31 +13,42 @@ from django.contrib.auth import authenticate, login
 def create_user(request):
     if request.method == "POST":
         form = UserCreationForm(request.POST)
+        
+        if form.is_valid():
 
-        if form.is_valid():#error con el formulario
-
-            form.save()
-            username = form.cleaned_data["username"]
-            password = form.cleaned_data["password1"]
-            InsertId= (User.objects.last()).id
-            Data_Users.objects.create(user_id =InsertId, birthday = request.POST["birthday"], gender = request.POST["gender"], category_id = 1)
-            UsermodelUpdate= User.objects.get(pk=InsertId)
-            UsermodelUpdate.first_name = request.POST["first_name"]
-            UsermodelUpdate.last_name = request.POST["last_name"]
-            UsermodelUpdate.email = request.POST["email"]
-            UsermodelUpdate.save()
-            user = authenticate(username=username, password=password)
-            login(request, user)
-            
-            return render(request, "TEMPLATES/index.html")
-        else:
-            form = UserCreationForm()
-            context = {"form":form}
+            try:
+                form.save()
+                username = form.cleaned_data["username"]
+                password = form.cleaned_data["password1"]
+                InsertId= (User.objects.last()).id
+                Data_Users.objects.create(user_id =InsertId, birthday = request.POST["birthday"], gender = request.POST["gender"], category_id = 1)
+                UsermodelUpdate= User.objects.get(pk=InsertId)
+                UsermodelUpdate.first_name = request.POST["first_name"]
+                UsermodelUpdate.last_name = request.POST["last_name"]
+                UsermodelUpdate.email = request.POST["email"]
+                UsermodelUpdate.save()
+                user = authenticate(username=username, password=password)
+                login(request, user)
+                
+                return render(request, "TEMPLATES/index.html")
+            except:
+                User.objects.last().delete()
+                error = True
+                context = {"error":error}
+                return render(request, "TEMPLATES/create_users.html", context=context)
+        elif IntegrityError:
+            print("OK.")
+            exist= True
+            context = {"exist":exist}
             return render(request, "TEMPLATES/create_users.html", context=context)
-    else:
-        form = UserCreationForm()
-        context = {"form":form}
-        return render(request, "TEMPLATES/create_users.html", context=context)
+        else:
+            error = True
+            context = {"error":error}
+            return render(request, "TEMPLATES/create_users.html", context=context)
+
+    form = UserCreationForm()
+    context = {"form":form}
+    return render(request, "TEMPLATES/create_users.html", context=context)
 
 def login_view(request):
     if request.method == "POST":

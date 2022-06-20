@@ -4,6 +4,7 @@ La pagina funciona como un blog donde podes registrarte y tambien buscar usuario
 -Para crear un perfil de empresa debe registarse y estar logeado en la pagina(sin embargo se puede entrar directamente desde la url)<br />
 -Se puede ver las categorias y separarlos<br />
 -Se peude buscar por nombres, email o nombre de usuario<br />
+-En la página de registro de empresa y usuario, si se intenta registrar una empresa o usario con un nombre que ya existente, la página mostrará un mensaje de advertencia. Si se ocurre un error mostrará un mensaje dicendo que ha ocurrido un error.<br />
 
 LAS PAGINAS SON:
 
