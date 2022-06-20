@@ -1,16 +1,21 @@
+from distutils.command import upload
+from email.mime import image
 from tabnanny import verbose
 from django.db import models
 from django.contrib.auth.models import User
+from PIL import Image
 
 # Create your models here.
 
 class Data_Users(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, max_length=20, unique=True)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, max_length=20, unique=True, related_name="data_users")
+    image = models.ImageField(upload_to="profile_image", default="anonymous-user.png")
     gender = models.CharField(
         max_length=9,
         choices=[("Masculino", "Masculino"),("Femenino", "Femenino")]
     )
     birthday = models.DateField()
+    category = models.ForeignKey("Category", on_delete=models.CASCADE, related_name="Usuarios") # asigana una categoria de la clase categoria
     
     def __str__(self) -> str:
         return self.user.username
@@ -21,10 +26,25 @@ class Empresas(models.Model):
     email = models.EmailField(max_length=30)
     ubicacion = models.CharField(max_length=70)
     numero = models.IntegerField(unique=True)
+    image = models.ImageField(upload_to="business_image", default="anonymous-business.jpg")
+    category = models.ForeignKey("Category", on_delete=models.CASCADE, related_name="Empresas")
 
     class Meta:
         verbose_name = "Empresa"
         verbose_name_plural = "Empresas"
+
+    def __str__(self) -> str:
+        return self.name+" [Nombre de la Empresa]"
+
+    def save(self, *args, **kwargs): #Redimensiona la imagen
+        super().save(*args, **kwargs)  # Guardar la imagen
+
+        img = Image.open(self.image.path) # Abre el archivo usando self
+
+        if img.height > 300 or img.width > 300:
+            output_size = (300, 300)
+            img.thumbnail(output_size)
+            img.save(self.image.path)  # Guarda la imagen en el mismo path
 
 class Category(models.Model):
     name = models.CharField(max_length=30)
@@ -32,3 +52,6 @@ class Category(models.Model):
     class Meta:
         verbose_name = "Categoria"
         verbose_name_plural = "Categorias"
+
+    def __str__(self) -> str:
+        return self.name+" [Categoria]" # añade el nombre a cada categoria creada

@@ -22,7 +22,7 @@ login
   {% endif %}
 
   <div class="login-form">
-    <form class="needs-validation login-form-inner create-company-form" novalidate action="" method="POST">
+    <form class="needs-validation login-form-inner create-company-form" novalidate action="" method="POST" enctype="multipart/form-data">
       <h1 class="text-center">Registrar una empresa</h1>
       {% csrf_token %}
 

@@ -10,6 +10,11 @@ class AccountsInline(admin.StackedInline):
     can_delete = False
     verbose_name_plural = "Usuarios"
 
+# class AvatarInline(admin.StackedInline):
+#     model= Avatar
+#     can_delete = False
+#     verbose_name_plural = "Foto de perfil"
+
 class CustomAccountAdmin(UserAdmin):
     inlines = (AccountsInline,)
 
@@ -18,3 +23,4 @@ admin.site.register(User, CustomAccountAdmin)
 
 admin.site.register(Empresas)
 admin.site.register(Category)
+# admin.site.register(Avatar)

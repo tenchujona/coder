@@ -20,6 +20,8 @@ from coder.views import home
 from app1.views import *
 
 from django.contrib.auth.views import LogoutView
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -32,3 +34,6 @@ urlpatterns = [
     path('create-user', create_user, name="login"),
     path('logout', LogoutView.as_view(template_name="TEMPLATES/index.html"), name="logout"),
 ]
+
+#IMAGES
+urlpatterns+= static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -6,7 +6,7 @@ Crear: Usuario
 
 {% block content %}
   <div class="login-form">
-    <form class="needs-validation login-form-inner create-user-form" novalidate action="" method="POST">
+    <form class="needs-validation login-form-inner create-user-form" novalidate action="" method="POST" enctype="multipart/form-data">
         <h1 class="text-center">Registrar un usuario</h1>
         {% csrf_token %}
         <div class="form-row">
@@ -69,7 +69,18 @@ Crear: Usuario
             <div class="invalid-feedback">
               Please select a valid gender.
             </div>
-        </div>
+          </div>
+          <div class="col-md-2 mb-2" style="margin-left:2rem">
+            <label for="validationCustom04">Género</label>
+            <select class="custom-select" name="category" required>
+              <option selected disabled value="">Choose...</option>
+              <option>Empresa</option>
+              <option>Usuario</option>
+            </select>
+            <div class="invalid-feedback">
+              Please select a valid gender.
+            </div>
+          </div>
         
         </div>
         <div class="form-group">

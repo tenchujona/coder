@@ -14,13 +14,13 @@ def create_user(request):
     if request.method == "POST":
         form = UserCreationForm(request.POST)
 
-        if form.is_valid():
+        if form.is_valid():#error con el formulario
 
             form.save()
             username = form.cleaned_data["username"]
             password = form.cleaned_data["password1"]
             InsertId= (User.objects.last()).id
-            Data_Users.objects.create(user_id =InsertId, birthday = request.POST["birthday"], gender = request.POST["gender"])
+            Data_Users.objects.create(user_id =InsertId, birthday = request.POST["birthday"], gender = request.POST["gender"], category_id = 1)
             UsermodelUpdate= User.objects.get(pk=InsertId)
             UsermodelUpdate.first_name = request.POST["first_name"]
             UsermodelUpdate.last_name = request.POST["last_name"]

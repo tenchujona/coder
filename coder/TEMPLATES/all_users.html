@@ -10,7 +10,7 @@ Categoría: Usuarios
         <div class="user-card-group-inner">
             {% for usuario in usuarios %}
                 <div class="card" style="width: 22rem; height: 22rem;">
-                    <img class="card-img-top" src=".../100px180" alt="Card image cap">
+                    <img class="card-img-top" src="{{usuario.data_users.image.url}}" alt="Card image cap">
                     <div class="card-body">
                         <h5 class="card-title">{{usuario.first_name}} {{usuario.last_name}}</h5>
                         <p class="card-text">Username: {{usuario.username}}</p>
