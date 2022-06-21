@@ -70,9 +70,9 @@ login
         </div>
         <div class="col-md-6 mb-3">
           <label for="validationCustom05">Número de contacto de la empresa</label>
-          <input type="text" class="form-control" name="numero" required>
+          <input type="tel" class="form-control" name="numero" pattern="[0-9-+() ]{1,20}" required>
           <div class="invalid-feedback">
-            Please provide a valid number.
+            Solo puede ingresar números, espacios y <strong>-,(),+</strong> con una cantidad máxima de 20 caracteres.
           </div>
         </div>
       </div>

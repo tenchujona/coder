@@ -1,9 +1,9 @@
-from distutils.command import upload
-from email.mime import image
 from tabnanny import verbose
 from django.db import models
 from django.contrib.auth.models import User
 from PIL import Image
+from django.core.validators import RegexValidator
+from pyparsing import alphanums
 
 # Create your models here.
 
@@ -22,11 +22,11 @@ class Data_Users(models.Model):
 
 class Empresas(models.Model):
     name = models.CharField(max_length=70, unique=True, blank=False, null=False)
-    CEO = models.CharField(max_length=40)
-    email = models.EmailField(max_length=30)
-    ubicacion = models.CharField(max_length=70)
+    CEO = models.CharField(max_length=70)
+    email = models.EmailField(max_length=50)
+    ubicacion = models.CharField(max_length=100)
     numero = models.CharField(max_length=15, unique=True)
-    image = models.ImageField(upload_to="business_image", default="anonymous-business.jpg")
+    image = models.ImageField(upload_to="business_image", default="anonymous-business.png")
     category = models.ForeignKey("Category", on_delete=models.CASCADE, related_name="Empresas")
 
     class Meta:

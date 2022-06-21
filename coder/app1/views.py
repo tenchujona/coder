@@ -123,6 +123,7 @@ def create_business(request):
                     CEO = form.cleaned_data["CEO"],
                     ubicacion = form.cleaned_data["ubicacion"],
                     numero = form.cleaned_data["numero"],
+                    category_id = 2,
                 )
                 new = True
                 business = Empresas.objects.all()
