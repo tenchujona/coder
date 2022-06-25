@@ -30,25 +30,25 @@ def create_user(request):
                 user = authenticate(username=username, password=password)
                 login(request, user)
                 
-                return render(request, "TEMPLATES/index.html")
+                return render(request, "index.html")
             except:
                 User.objects.last().delete()
                 error = True
                 context = {"error":error}
-                return render(request, "TEMPLATES/create_users.html", context=context)
+                return render(request, "create_users.html", context=context)
         elif IntegrityError:
             print("OK.")
             exist= True
             context = {"exist":exist}
-            return render(request, "TEMPLATES/create_users.html", context=context)
+            return render(request, "create_users.html", context=context)
         else:
             error = True
             context = {"error":error}
-            return render(request, "TEMPLATES/create_users.html", context=context)
+            return render(request, "create_users.html", context=context)
 
     form = UserCreationForm()
     context = {"form":form}
-    return render(request, "TEMPLATES/create_users.html", context=context)
+    return render(request, "create_users.html", context=context)
 
 def login_view(request):
     if request.method == "POST":
@@ -56,6 +56,7 @@ def login_view(request):
         form = AuthenticationForm(request, data = request.POST)
 
         if form.is_valid():
+            print("entrada valida")
             # username = form.cleaned_data["username"]
             # password = form.cleaned_data["password"]
             usuario = form.cleaned_data.get('username')
@@ -64,24 +65,26 @@ def login_view(request):
             user = authenticate(username=usuario, password=contra)
             
             if user is not None:
+                print("entrada valida no es nada")
                 login(request, user)
                 context = {"message":f"¡¡Bienvenido {usuario}!! :)"}
 
-                return render(request, "TEMPLATES/index.html", context=context)
+                return render(request, "index.html", context=context)
             else:
+                print("entrada valida es nada")
                 form = AuthenticationForm()
                 context = {"message", f"¡¡Bienvenido {usuario}!! :)"}
-                return render(request, "TEMPLATES/login.html", context=context)
+                return render(request, "login.html", context=context)
         else:
-
-            form = AuthenticationForm()
-            context = {"form":form}
-            return render(request, "TEMPLATES/login.html", context = context)
+            print("entrada no valida")
+            error = True
+            context = {"error":error}
+            return render(request, "login.html", context = context)
     else:
 
         form = AuthenticationForm()
         context = {"form":form}
-        return render(request, "TEMPLATES/login.html", context = context)
+        return render(request, "login.html", context = context)
 
 def search_view(request):
     if request.GET["search"] != (""):
@@ -95,21 +98,21 @@ def search_view(request):
             )
 
         context = {"user":user, "business":business}
-        return render(request, "TEMPLATES/search_view.html", context=context)
+        return render(request, "search_view.html", context=context)
     else:
         empty = True
         context = {"empty":empty}
-        return render(request, "TEMPLATES/index.html", context=context)
+        return render(request, "index.html", context=context)
 
 def categori_users(request):
     users = User.objects.all().select_related("data_users")
     context = {"usuarios":users}
-    return render(request, "TEMPLATES/all_users.html", context=context)
+    return render(request, "all_users.html", context=context)
 
 def categori_business(request):
     business = Empresas.objects.all()
     context = {"business":business}
-    return render(request, "TEMPLATES/all_business.html", context=context)
+    return render(request, "all_business.html", context=context)
 
 
 def create_business(request):
@@ -129,16 +132,16 @@ def create_business(request):
                 business = Empresas.objects.all()
                 context = {"new_content":new_content, "business":business, "new":new}
                 print(new_content)
-                return render(request, "TEMPLATES/all_business.html", context=context)
+                return render(request, "all_business.html", context=context)
             except IntegrityError:
                 exists = True
                 context = {"exists":exists}
-                return render(request, "TEMPLATES/create_business.html", context=context)
+                return render(request, "create_business.html", context=context)
         else:
             error = True
             context = {"error":error}
-            return render(request, "TEMPLATES/create_business.html", context=context)
+            return render(request, "create_business.html", context=context)
 
     form = Empresa_form()
     context = {"form":form}
-    return render(request, "TEMPLATES/create_business.html", context=context)
+    return render(request, "create_business.html", context=context)

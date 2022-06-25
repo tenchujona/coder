@@ -1,4 +1,4 @@
-{% extends "TEMPLATES/base.html" %}
+{% extends "base.html" %}
 
 {% block title %}
 login
@@ -9,7 +9,7 @@ login
         <div class="login-form">
             {% if error %}
                 <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                    Usuario y/o contraseña incorrecto, por favor vuelva a intentarlo o <a href="/create-user/" class="alert-link">si no tine cuenta registrese aquí.</a>
+                    Usuario y/o contraseña incorrecto, por favor vuelva a intentarlo. <a href="/create-user/" class="alert-link">Si no esta registrado puede hacerlo desde aquí.</a>
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                     </button>
