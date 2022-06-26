@@ -23,6 +23,10 @@
     border-radius: 10px;
 }
 
+.user-edit-form{
+    padding: 15px 15px; background-color:#e9e8ff; width: 35rem; border-radius: 10px;
+}
+
 .create-user-form{
     width: 70rem;
 }
@@ -32,22 +36,18 @@
 }
 
 .user-card-group{
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-    height: 80vh;
-    flex-direction: column;
+    align-items: center;justify-content: space-evenly;height: 80vh;flex-direction: column;margin-top: 23cm;
+}
+
+.card-body{
+    padding: 10px 10px;
+    margin: 10px 10px;
+    border-radius: 50px;
+    width: 18rem;
+    height: 22rem;
 }
 
 .card{
-    padding: 10px 10px;
-    margin: 10px 10px;
-}
-
-.user-card-group-inner{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #e9e8ff;
-    border-radius: 10px;
+    width:800px; 
+    margin:0 auto;
 }

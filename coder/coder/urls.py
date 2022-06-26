@@ -32,7 +32,8 @@ urlpatterns = [
     path('all-business/', categori_business, name="login"),
     path('create-business/', create_business, name="login"),
     path('create-user', create_user, name="login"),
-    path('logout', LogoutView.as_view(template_name="TEMPLATES/index.html"), name="logout"),
+    path('logout', LogoutView.as_view(template_name="index.html"), name="logout"),
+    path('my-profile/', profile, name="mi perfil"),
 ]
 
 #IMAGES

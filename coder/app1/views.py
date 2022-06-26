@@ -1,3 +1,4 @@
+from multiprocessing import context
 from django.db import IntegrityError
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
@@ -52,39 +53,29 @@ def create_user(request):
 
 def login_view(request):
     if request.method == "POST":
-        print(request.POST)
+
         form = AuthenticationForm(request, data = request.POST)
 
         if form.is_valid():
-            print("entrada valida")
-            # username = form.cleaned_data["username"]
-            # password = form.cleaned_data["password"]
+
             usuario = form.cleaned_data.get('username')
             contra = form.cleaned_data.get('password')
             
             user = authenticate(username=usuario, password=contra)
             
             if user is not None:
-                print("entrada valida no es nada")
                 login(request, user)
                 context = {"message":f"¡¡Bienvenido {usuario}!! :)"}
 
                 return render(request, "index.html", context=context)
-            else:
-                print("entrada valida es nada")
-                form = AuthenticationForm()
-                context = {"message", f"¡¡Bienvenido {usuario}!! :)"}
-                return render(request, "login.html", context=context)
+
         else:
-            print("entrada no valida")
             error = True
             context = {"error":error}
             return render(request, "login.html", context = context)
-    else:
 
-        form = AuthenticationForm()
-        context = {"form":form}
-        return render(request, "login.html", context = context)
+    else:
+        return render(request, "login.html")
 
 def search_view(request):
     if request.GET["search"] != (""):
@@ -106,14 +97,15 @@ def search_view(request):
 
 def categori_users(request):
     users = User.objects.all().select_related("data_users")
-    context = {"usuarios":users}
+    cant = User.objects.all().select_related("data_users").count()
+    print(cant)
+    context = {"usuarios":users, "cantidad":cant}
     return render(request, "all_users.html", context=context)
 
 def categori_business(request):
     business = Empresas.objects.all()
     context = {"business":business}
     return render(request, "all_business.html", context=context)
-
 
 def create_business(request):
     if request.method == "POST":
@@ -145,3 +137,7 @@ def create_business(request):
     form = Empresa_form()
     context = {"form":form}
     return render(request, "create_business.html", context=context)
+
+def profile(request):
+    context={}
+    return render(request, "profile.html", context=context)

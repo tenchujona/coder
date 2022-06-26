@@ -29,22 +29,18 @@ Categoría: Empresas
             </div>
         </div>
     {% endif %}
-    <div class="user-card-group">
-        <h1 class="text-center" style="margin: 20px 0px; font-size: 75px;">Todos las Empresas:</h1>
-        <div class="user-card-group-inner">
-            {% for empresas in business %}
-                <div class="card" style="width: 30rem; height: 25rem;">
-                    <img class="card-img-top" src="{{empresas.image.url}}" alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title">{{empresas.name}}</h5>
-                        <p class="card-text">CEO: {{empresas.CEO}}</p>
-                        <p class="card-text">Correo: {{empresas.email}}</p>
-                        <p class="card-text">Ubicación: {{empresas.ubicacion}}</p>
-                        <p class="card-text">Número: {{empresas.numero}}</p>
-                        <a href="#" class="btn btn-primary">contactar a {{empresas.name}}</a>
-                    </div>
-                </div>
-            {% endfor %}
+    <h1 class="text-center" style="margin: 20px 0px; font-size: 75px;">Todos las Empresas:</h1>
+    {% for empresas in business %}
+        <div class="card" style="width:15cm; margin:0 auto; margin-bottom: 10px; border-radius: 20px;">
+            <img class="card-img-top" src="{{empresas.image.url}}" alt="Foto de perfil de usuario">
+            <div class="card-body">
+                <h5 class="card-title">{{empresas.name}}</h5>
+                <p class="card-text">CEO: {{empresas.CEO}}</p>
+                <p class="card-text">Correo: {{empresas.email}}</p>
+                <p class="card-text">Ubicación: {{empresas.ubicacion}}</p>
+                <p class="card-text">Número: {{empresas.numero}}</p>
+                <a href="#" class="btn btn-primary">contactar a {{empresas.name}}</a>
+            </div>
         </div>
-    </div>
+    {% endfor %}
 {% endblock %}

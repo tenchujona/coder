@@ -13,58 +13,71 @@
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body>
+    <style>
+        .dropdown-menu {
+            background-color: #343a40;
+            border-color: #343a40;
+        }
+
+        .dropdown-item {
+            color: #b6babe
+        }
+
+        .dropdown-item:hover {
+            background-color: #494d52;
+            color: #ffffff
+        }
+    </style>
     <header>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="height: 4rem;">
-            <a class="navbar-brand" href="/">Inicio</a>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <a class="navbar-brand" href="/">EncuenteLoQueBusca</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            
-            <div class="collapse navbar-collapse" id="navbarSupportedContent" style="height: 3rem;">
-                <ul class="navbar-nav mr-auto">
+          
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin/">Admin</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
+                      Mostrar por categoria
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                      <a class="dropdown-item" href="/all-users/">Usuarios</a>
+                      <a class="dropdown-item" href="/all-business/">Empresas</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
+                      Crear
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="/create-user">Registrarme</a>
+                        {% if request.user.is_authenticated %}
+                            <a class="dropdown-item" href="/create-business/">Crear Empresas</a>
+                        {% else %}
+                            <a class="dropdown-item disabled" href="/create-business/">Crear Empresas</a>
+                        {% endif %}
+                    </div>
+                </li>
+                </li>
+                {% if request.user.is_authenticated %}
                     <li class="nav-item">
-                        <a class="nav-link" href="/admin/">Admin</a>
+                        <a class="nav-link" href="/logout">Cerrar sesión</a>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
-                          Mostrar por categoria
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                          <a class="dropdown-item" href="/all-users/">Usuarios</a>
-                          <a class="dropdown-item" href="/all-business/">Empresas</a>
-                        </div>
+                    <a href="/my-profile/"><img src="{{request.user.data_users.image.url}}" style="height: 3rem;"></a>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="/login">Iniciar sesión</a>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
-                          Crear
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="/create-user">Registrarme</a>
-                            {% if request.user.is_authenticated %}
-                                <a class="dropdown-item" href="/create-business/">Crear Empresas</a>
-                            {% else %}
-                                <a class="dropdown-item disabled" href="/create-business/">Crear Empresas</a>
-                            {% endif %}
-                        </div>
-                    </li>
-                    {% if request.user.is_authenticated %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="/logout">Cerrar sesión</a>
-                        </li>
-
-                        <li class="nav-item" style="margin-left: 66.7rem; margin-top: .3%;">
-                            <img src="{{request.user.data_users.image.url}}" style="height: 2rem;">
-                        </li>
-                    {% else %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="/login">Iniciar sesión</a>
-                        </li>
-                    {% endif %}
-                </ul>
+                {% endif %}
+              </ul>
                 <form class="form-inline my-2 my-lg-0" action="/buscar/" method="GET">
-                    <input class="form-control mr-sm-2" type="txt" placeholder="Encuentre lo que busca" name="search" aria-label="Search">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
-                </form>
+                <input class="form-control mr-sm-2" type="txt" placeholder="Encuentre lo que busca" name="search" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
+                 </form>
             </div>
         </nav>
     </header>
