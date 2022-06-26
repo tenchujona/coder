@@ -67,16 +67,16 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/logout">Cerrar sesión</a>
                     </li>
-                    <a href="/my-profile/"><img src="{{request.user.data_users.image.url}}" style="height: 3rem;"></a>
                 {% else %}
                     <li class="nav-item">
                         <a class="nav-link" href="/login">Iniciar sesión</a>
                     </li>
                 {% endif %}
               </ul>
+                <a href="/my-profile/"><img src="{{request.user.data_users.image.url}}" style="height: 3rem; margin-right: 1rem;"></a>
                 <form class="form-inline my-2 my-lg-0" action="/buscar/" method="GET">
-                <input class="form-control mr-sm-2" type="txt" placeholder="Encuentre lo que busca" name="search" aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
+                    <input class="form-control mr-sm-2" type="txt" placeholder="Encuentre lo que busca" name="search" aria-label="Search">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
                  </form>
             </div>
         </nav>

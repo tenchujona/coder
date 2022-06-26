@@ -8,7 +8,7 @@ Categoría: Usuarios
     <h1 class="text-center" style="margin: 20px 0px; font-size: 75px;">Todos los usuarios</h1>
     {% for usuario in usuarios %}
         <div class="card" style="width:15cm; margin:0 auto; margin-bottom: 10px; border-radius: 20px;">
-            <img class="card-img-top" src="{{usuario.data_users.image.url}}" alt="Foto de perfil de usuario">
+            <img class="card-img-top" src="{{usuario.data_users.image.url}}" alt="Foto de perfil de usuario" style="border-radius: 20px;">
             <div class="card-body">
                 <h5 class="card-title">{{usuario.first_name}} {{usuario.last_name}}</h5>
                 <p class="card-text">Username: {{usuario.username}}</p>
