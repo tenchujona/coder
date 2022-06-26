@@ -9,7 +9,7 @@ from pyparsing import alphanums
 
 class Data_Users(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, max_length=20, unique=True, related_name="data_users")
-    image = models.ImageField(upload_to="profile_image", default="anonymous-user.png")
+    image = models.ImageField(upload_to="profile_image", default="default_images/anonymous-user.png")
     gender = models.CharField(
         max_length=9,
         choices=[("Masculino", "Masculino"),("Femenino", "Femenino")]
@@ -25,8 +25,8 @@ class Empresas(models.Model):
     CEO = models.CharField(max_length=70)
     email = models.EmailField(max_length=50)
     ubicacion = models.CharField(max_length=100)
-    numero = models.CharField(max_length=15, unique=True)
-    image = models.ImageField(upload_to="business_image", default="anonymous-business.png")
+    numero = models.CharField(max_length=20, unique=True)
+    image = models.ImageField(upload_to="business_image", default="default_images/anonymous-business.png")
     category = models.ForeignKey("Category", on_delete=models.CASCADE, related_name="Empresas")
 
     class Meta:

@@ -7,7 +7,7 @@ Crear: Empresa
 {% block content %}
   {% if error %}
     <div class="alert alert-warning alert-dismissible fade show" role="alert">
-      <strong>¡Lo sentimos!</strong> Ha ocurrido un error inesperado, por favor recargue la página y vuelva a intentarlo. <strong> Nota:</strong> Recuerde usar los caracteres correctos en cada campo.
+      <strong>¡Lo sentimos!</strong> Ha ocurrido un error inesperado, por favor recargue la página y vuelva a intentarlo. <strong> Nota:</strong> Recuerde usar los caracteres correctos en cada campo y solo usar archivos de imagen.
       <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>
       </button>
@@ -22,7 +22,7 @@ Crear: Empresa
   {% endif %}
 
   <div class="login-form">
-    <form class="needs-validation login-form-inner create-company-form" novalidate action="" method="POST" enctype="multipart/form-data">
+    <form class="needs-validation login-form-inner create-company-form" novalidate action="" method="POST" enctype= multipart/form-data style="width: auto;">
       <h1 class="text-center">Registrar una empresa</h1>
       {% csrf_token %}
 
@@ -56,16 +56,18 @@ Crear: Empresa
             Please provide a valid ubication.
           </div>
         </div>
-        
       </div>
 
-      <div class="form-row">
-        <div class="form-group" style="margin-left: 5px;">
-          <label for="exampleFormControlFile1">Suba una imagen de su empresa</label>
-          <input type="file" class="form-control-file" id="exampleFormControlFile1">
+      <div class="form-row" style="margin-top: 14px;">
+        <div class="col-md-6 mb-3">
+          <label for="validationCustom05">Suba una imagen de su empresa</label>
+          <div class="custom-file">
+            <input type="file" class="custom-file-input" name="image" accept="image/*">
+            <label class="custom-file-label">Seleccionar Archivo</label>
+          </div>
         </div>
-        <div class="col-md-6 mb-3" style="margin-left: 103mm;">
-          <label for="validationCustom05">Número de contacto de la empresa</label>
+        <div class="col-md-6 mb-3">
+          <label for="validationCustom06">Número de contacto de la empresa</label>
           <input type="tel" class="form-control" name="numero" pattern="[0-9-+() ]{1,20}" required>
           <div class="invalid-feedback">
             Solo puede ingresar números, espacios y <strong>-,(),+</strong> con una cantidad máxima de 20 caracteres.
@@ -86,23 +88,23 @@ Crear: Empresa
   </div>
 
   <script>
-  // Example starter JavaScript for disabling form submissions if there are invalid fields
-  (function() {
-    'use strict';
-    window.addEventListener('load', function() {
-      // Fetch all the forms we want to apply custom Bootstrap validation styles to
-      var forms = document.getElementsByClassName('needs-validation');
-      // Loop over them and prevent submission
-      var validation = Array.prototype.filter.call(forms, function(form) {
-        form.addEventListener('submit', function(event) {
-          if (form.checkValidity() === false) {
-            event.preventDefault();
-            event.stopPropagation();
-          }
-          form.classList.add('was-validated');
-        }, false);
-      });
-    }, false);
-  })();
+    // Example starter JavaScript for disabling form submissions if there are invalid fields
+    (function() {
+      'use strict';
+      window.addEventListener('load', function() {
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        var forms = document.getElementsByClassName('needs-validation');
+        // Loop over them and prevent submission
+        var validation = Array.prototype.filter.call(forms, function(form) {
+          form.addEventListener('submit', function(event) {
+            if (form.checkValidity() === false) {
+              event.preventDefault();
+              event.stopPropagation();
+            }
+            form.classList.add('was-validated');
+          }, false);
+        });
+      }, false);
+    })();
   </script>
 {% endblock %}

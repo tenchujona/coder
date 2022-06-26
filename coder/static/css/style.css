@@ -36,7 +36,10 @@
 }
 
 .user-card-group{
-    align-items: center;justify-content: space-evenly;height: 80vh;flex-direction: column;margin-top: 23cm;
+    align-items: center;
+    justify-content: space-evenly;
+    height: 80vh;
+    flex-direction: column;
 }
 
 .card-body{

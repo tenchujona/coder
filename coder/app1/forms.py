@@ -1,7 +1,5 @@
-from tkinter import W
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.models import User
 
 class Account_form(UserCreationForm):
     email = forms.EmailField(widget=forms.EmailInput(attrs={'class': 'form-control'}))
@@ -14,6 +12,7 @@ class Empresa_form(forms.Form):
     email = forms.EmailField(max_length=50)
     ubicacion = forms.CharField(max_length=100)
     numero = forms.CharField()
+    image = forms.ImageField(required=False)
 
 class Category_form(forms.Form):
     name = forms.CharField(max_length=30)
