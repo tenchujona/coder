@@ -1,4 +1,4 @@
-# coder
+# CODERHOUSER PROYECTO FINAL
 La pagina funciona como un blog donde podes registrarte y tambien buscar usuarios o empresas a travez de la barra de busqueda. Cuenta con un login para ingresar y tambien una pagina de inicio.
 
 - Para crear un perfil de empresa debe registarse y estar logeado en la pagina<br />
@@ -9,10 +9,13 @@ La pagina funciona como un blog donde podes registrarte y tambien buscar usuario
 - Si no estas logeado no puedes entrar en la página de perfil <br />
 - Si cambias la contraseña se cerrará tu sesión y serás redireccionado a la página de login <br />
 
-LAS PAGINAS SON:
-
-Usuario: Monica
+Usuario no staff: Monica
 Contraseña: testuser
+
+Usuario staff: admin
+Contraseña: coderadmin123
+
+LAS PAGINAS SON:
 
 http://127.0.0.1:8000/<br />
 http://127.0.0.1:8000/login/<br />
