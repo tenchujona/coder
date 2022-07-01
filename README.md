@@ -9,11 +9,11 @@ La pagina funciona como un blog donde podes registrarte y tambien buscar usuario
 - Si no estas logeado no puedes entrar en la página de perfil <br />
 - Si cambias la contraseña se cerrará tu sesión y serás redireccionado a la página de login <br />
 
-Usuario no staff: Monica<br />
-Contraseña: testuser<br />
+**Usuario no staff**: Monica<br />
+**Contraseña**: testuser<br />
 
-Usuario staff: admin<br />
-Contraseña: coderadmin123<br />
+**Usuario staff**: admin<br />
+**Contraseña**: coderadmin123<br />
 
 LAS PAGINAS SON:
 
