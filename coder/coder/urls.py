@@ -19,7 +19,6 @@ from django.urls import path
 from coder.views import home
 from app1.views import *
 
-from django.contrib.auth.views import LogoutView
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -31,8 +30,8 @@ urlpatterns = [
     path('all-users/', categori_users, name="login"),
     path('all-business/', categori_business, name="login"),
     path('create-business/', create_business, name="login"),
-    path('create-user', create_user, name="login"),
-    path('logout', LogoutView.as_view(template_name="index.html"), name="logout"),
+    path('signup', create_user, name="login"),
+    path('logout', logout_view, name="logout"),
     path('my-profile/', profile, name="mi perfil"),
 ]
 

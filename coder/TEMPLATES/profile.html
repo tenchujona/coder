@@ -1,71 +1,226 @@
 {% extends "base.html" %}
 
 {% block title %}
-My perfil
+Mi perfil de usuario
 {% endblock %}
 
 {% block content %}
 {% if error %}
-    <div class="alert alert-warning alert-dismissible fade show" role="alert">
-      <strong>¡Lo sentimos!</strong> Ha ocurrido un error inesperado, por favor recargue la página y vuelva a intentarlo. <strong>Nota:</strong> Recuerde usar los caracteres correctos en cada campo.
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
+  <div class="alert alert-warning alert-dismissible fade show" role="alert">
+    <strong>¡Lo sentimos!</strong> Ha ocurrido un error inesperado, por favor recargue la página y vuelva a intentarlo. <strong>Nota:</strong> Recuerde usar los caracteres correctos en cada campo.
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
 {% elif exist %}
-    <div class="alert alert-warning alert-dismissible fade show" role="alert">
-      <strong>¡Oh no!</strong> parece que el nombre de usuario que escogiste <strong>ya existe.</strong> Por favor intente con otro nombre de usuario.
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
+  <div class="alert alert-warning alert-dismissible fade show" role="alert">
+    <strong>¡Oh no!</strong> parece que el nombre de usuario que escogiste <strong>ya existe</strong>, algunos datos se guardaron. Por favor intente con otro nombre de usuario.
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+{% elif password_reset %}
+  <div class="alert alert-warning alert-dismissible fade show" role="alert">
+    <strong>¡Ha cambiado su contraseña!</strong> en 7 segundos será redireccionado, por favor vuelva ha inicar sesión.
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>  
+{% elif success %}
+  <div class="alert alert-warning alert-dismissible fade show" role="alert">
+    <strong>¡Bien hecho!</strong> Los datos de tu perfil se actualizaron correctamente. <strong>NOTA:</strong> Algunos datos necesitan recargar la página para ser visibles.
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+{% elif not_match %}
+  <div class="alert alert-warning alert-dismissible fade show" role="alert">
+    <strong>¡Oh no!</strong> Las contraseñas no coinciden, inténtalo otra vez.
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
 {% endif %}
+<style>
+  .image-preview {
+    width: 290px;
+    height: 257px;
+    border:5px solid rgba(44, 43, 43, 0.247);
+    border-radius: 20px;
+
+    /* Default text */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    color: rgba(44, 43, 43, 0.247);
+  }
+
+  .image-preview__image {
+    display: none;
+    width: 100%;
+    height: 100%;
+    border-radius: 13px;
+  }
+
+  .profile-image {
+    border:5px solid rgba(44, 43, 43, 0.247);
+    border-radius: 20px;
+    height: 290px;
+    width:290px;
+  }
+</style>
 
 <h3 style="text-align: center; margin-top: 5vh;"><u>!Hola {{request.user.username}}, Aqui puedes editar tu perfil, tómate tu tiempo!</u></h5>
-<form style="padding: 15px 15px; background-color:#e9e8ff; width: 30cm; border-radius: 10px; margin-left: auto; margin-top: 5vh; margin-right: auto;">
+<div style="margin-left: 3cm; margin-right: 3cm; margin-top: 5vh;">
+  <form style="padding: 15px 15px; background-color:#e9e8ff; border-radius: 10px;" method="POST" enctype= multipart/form-data>
+    {% csrf_token %}
     <div class="form-row">
-      <div class="form-group col-md-6">
+      <div class="form-group col-md-4">
         <label for="inputEmail4">Email</label>
-        <input type="email" class="form-control" id="inputEmail4">
+        <input type="email" class="form-control" name="email" placeholder="{{request.user.email}}"> 
+        <div>
+          <label for="inputPassword4" style="margin-top: 15px">Password</label>
+            <input type="password" class="form-control" name="password1" placeholder="Ingrese su nueva contraseña">
+            <small><strong>ADVERTENCIA:</strong> Cambiar la contraseña requiere volver a iniciar sesión</small>
+        </div>
+        <label for="inputPassword4" style="margin-top: 15px">Repita la contraseña</label>
+        <input type="password" class="form-control" name="password2" placeholder="Repita su nueva contraseña">
       </div>
-      <div class="form-group col-md-6">
-        <label for="inputPassword4">Password</label>
-        <input type="password" class="form-control" id="inputPassword4">
-      </div>
-    </div>
-    <div class="form-group">
-      <label for="inputAddress">Address</label>
-      <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
-    </div>
-    <div class="form-group">
-      <label for="inputAddress2">Address 2</label>
-      <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
-    </div>
-    <div class="form-row">
-      <div class="form-group col-md-6">
-        <label for="inputCity">City</label>
-        <input type="text" class="form-control" id="inputCity">
+      <div class="form-group col-md-4" >
+        <div style="margin-right: auto; margin-left: auto; width: 290px;">
+          <input type="file" name="image" id="image" accept="image/*">
+          <div class="image-preview" id="imagePreview">
+            <img src="" alt="Image Preview" class="image-preview__image">
+            <span class="image-preview__default-text">Image Preview</span>
+          </div>
+        </div>  
       </div>
       <div class="form-group col-md-4">
-        <label for="inputState">State</label>
-        <select id="inputState" class="form-control">
-          <option selected>Choose...</option>
-          <option>...</option>
+        <div style="margin-right: auto; margin-left: auto; width: 290px;">
+          <img class="profile-image" src="{{request.user.related.image.url}}" alt="Foto de perfil de usuario">
+        </div>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-4">
+        <label for="inputAddress">Nombres</label>
+        <input type="text" class="form-control" name="first_name" placeholder="{{request.user.first_name}}">
+      </div>
+      <div class="form-group col-md-4">
+        <label for="inputAddress">Apellidos</label>
+        <input type="text" class="form-control" name="last_name" placeholder="{{request.user.last_name}}">
+      </div>
+      <div class="form-group col-md-4">
+        <label for="inputAddress">Nombre de usuario</label>
+        <input type="text" class="form-control" name="username" placeholder="{{request.user}}">
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-4">
+        <label for="inputAddress2">Ocupación</label>
+        {% if request.user.related.ocupacion == None %}
+          <input type="text" class="form-control" name="ocupacion" placeholder="Mecánico, Ing. Sistemas, Marketing...">
+        {% else %}
+          <input type="text" class="form-control" name="ocupacion" placeholder="{{request.user.related.ocupacion}}">
+        {% endif %}
+      </div>
+      <div class="form-group col-md-4">
+        <label for="inputAddress2">Número telefónico</label>
+        {% if request.user.related.numero == None %}
+          <input type="tel" class="form-control" name="numero" pattern="[0-9-+() ]{1,20}" placeholder="Ingrese su número de teléfono">
+        {% else %}
+          <input type="tel" class="form-control" name="numero" pattern="[0-9-+() ]{1,20}" placeholder="{{request.user.related.numero}}">
+        {% endif %}
+      </div>
+      <div class="form-group col-md-4">
+        <label for="inputAddress">Dirección</label>
+        {% if request.user.related.address == None %}
+          <input type="text" class="form-control" name="address" placeholder="1234 Main St">
+        {% else %}
+          <input type="text" class="form-control" name="address" placeholder="{{request.user.related.address}}">
+        {% endif %}
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label for="inputCity">País de Nacimiento</label>
+        {% if request.user.related.pais == None %}
+          <input type="text" class="form-control" name="pais" placeholder="Ingrese el país donde nació">
+        {% else %}
+          <input type="text" class="form-control" name="pais" placeholder="{{request.user.related.pais}}">
+        {% endif %}
+      </div>
+      <div class="form-group col-md-4">
+        <label for="inputState">Género</label>
+        <select name="genero" class="form-control">
+          <option selected>{{request.user.related.gender}}</option>
+          {% if request.user.related.gender == 'Masculino' %}
+            <option>Femenino</option>
+          {% elif request.user.related.gender == 'Femenino' %}
+            <option>Masculino</option>
+          {% else %}
+            <option>Masculino</option>
+            <option>Femenino</option>
+          {% endif %}
         </select>
       </div>
       <div class="form-group col-md-2">
-        <label for="inputZip">Zip</label>
-        <input type="text" class="form-control" id="inputZip">
+        <label for="inputZip">Ciudad</label>
+        {% if request.user.related.ciudad == None %}
+          <input type="text" class="form-control" name="ciudad" placeholder="Ingrese su ciudad">
+        {% else %}
+          <input type="text" class="form-control" name="ciudad" placeholder="{{request.user.related.ciudad}}">
+        {% endif %}
       </div>
     </div>
     <div class="form-group">
       <div class="form-check">
-        <input class="form-check-input" type="checkbox" id="gridCheck">
+        <input class="form-check-input" type="checkbox" name="checkbox" required>
         <label class="form-check-label" for="gridCheck">
-          Check me out
+          Estoy consiente de los cambios realizados.
         </label>
       </div>
     </div>
-    <button type="submit" class="btn btn-primary">Sign in</button>
-</form>
+    <button type="submit" class="btn btn-primary">Guardar cambios</button>
+  </form>
+</div>
+
+<script>
+  const image = document.getElementById("image");
+  const previewContainer = document.getElementById("imagePreview");
+  const previewImage = previewContainer.querySelector(".image-preview__image");
+  const previewDefaultText = previewContainer.querySelector(".image-preview__default-text");
+
+  image.addEventListener("change", function(){
+    const file = this.files[0];
+
+    if (file) {
+      const reader = new FileReader();
+
+      previewDefaultText.style.display = "none";
+      previewImage.style.display = "block";
+
+      reader.addEventListener("load", function() {
+        console.log(this);
+        previewImage.setAttribute("src", this.result);
+      });
+
+      reader.readAsDataURL(file);
+    } else {
+      previewDefaultText.style.display = null;
+      previewImage.style.display = null;
+      previewImage.setAttribute("src", "");
+    }
+  });
+</script>
+{% if password_reset %}
+  <script>
+    time = 7;
+    let url = "http://127.0.0.1:8000/login";
+    setTimeout(function(){
+      location = url;
+    },time*1000)
+  </script>
+{% endif %}
 {% endblock %}

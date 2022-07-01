@@ -9,7 +9,7 @@ login
         <div class="login-form">
             {% if error %}
                 <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                    Usuario y/o contraseña incorrecto, por favor vuelva a intentarlo. <a href="/create-user/" class="alert-link">Si no esta registrado puede hacerlo desde aquí.</a>
+                    Usuario y/o contraseña incorrecto, por favor vuelva a intentarlo. <a href="/signup" class="alert-link">Si no esta registrado puede hacerlo desde aquí.</a>
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                     </button>
@@ -29,7 +29,11 @@ login
                     <small id="passwordlHelp" class="form-text text-muted">Ingrese su contraseña.</small>
                 </div>
 
-                <button type="submit" class="btn btn-primary">Iniciar sesion</button>
+                <div>
+                    <button type="submit" class="btn btn-primary">Iniciar sesion</button>
+                    <a href="/signup"><small id="passwordlHelp" style="margin-left: 10.7cm">¿No estás registrado?</small></a>
+                </div>
+                
             </form>
         </div>
     </main>

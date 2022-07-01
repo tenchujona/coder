@@ -19,6 +19,13 @@ Crear: Usuario
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
+  {% elif not_match %}
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+      <strong>¡Oh no!</strong> parece que las contraseñas <strong>no coinciden.</strong> Por favor intentelo de nuevo y asegurese de introducir las contraseñas correctamente.
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
   {% endif %}
 
   <div class="login-form">
@@ -28,14 +35,14 @@ Crear: Usuario
         <div class="form-row">
           <div class="col-md-6 mb-3">
             <label for="validationCustom01">Usuario</label>
-            <input type="text" class="form-control" name="username" value="Mark" required>
+            <input type="text" class="form-control" name="username" placeholder="Mark" required>
             <div class="valid-feedback">
               Looks good!
             </div>
           </div>
           <div class="col-md-6 mb-3">
             <label for="exampleInputEmail1">Email address</label>
-            <input type="email" class="form-control" name="email" aria-describedby="emailHelp" value="forexample@email.com" required>
+            <input type="email" class="form-control" name="email" aria-describedby="emailHelp" placeholder="forexample@email.com" required>
             <small id="emailHelp" class="form-text text-muted">No compartiremos sus datos con nadie.</small>
           </div class="valid-feedback">
 

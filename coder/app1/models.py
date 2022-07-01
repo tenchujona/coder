@@ -8,14 +8,19 @@ from pyparsing import alphanums
 # Create your models here.
 
 class Data_Users(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, max_length=20, unique=True, related_name="data_users")
+    user = models.OneToOneField(User, on_delete=models.CASCADE, max_length=20, unique=True, related_name="related")
     image = models.ImageField(upload_to="profile_image", default="default_images/anonymous-user.png")
     gender = models.CharField(
         max_length=9,
         choices=[("Masculino", "Masculino"),("Femenino", "Femenino")]
     )
     birthday = models.DateField()
-    category = models.ForeignKey("Category", on_delete=models.CASCADE, related_name="Usuarios") # asigana una categoria de la clase categoria
+    category = models.ForeignKey("Category", on_delete=models.CASCADE) # asigana una categoria de la clase categoria
+    address = models.CharField(max_length=100, blank=True, null=True)
+    ocupacion = models.CharField(max_length=50, blank=True, null=True)
+    numero = models.CharField(max_length=20, blank=True, null=True, unique=True)
+    pais = models.CharField(max_length=20, blank=True, null=True)
+    ciudad = models.CharField(max_length=20, blank=True, null=True)
     
     def __str__(self) -> str:
         return self.user.username
@@ -28,6 +33,7 @@ class Empresas(models.Model):
     numero = models.CharField(max_length=20, unique=True)
     image = models.ImageField(upload_to="business_image", default="default_images/anonymous-business.png")
     category = models.ForeignKey("Category", on_delete=models.CASCADE, related_name="Empresas")
+    active = models.BooleanField(default=True, null=True)
 
     class Meta:
         verbose_name = "Empresa"

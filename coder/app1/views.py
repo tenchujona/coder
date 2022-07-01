@@ -1,14 +1,12 @@
 from multiprocessing import context
 from django.db import IntegrityError
-from django.http import HttpResponse
 from django.shortcuts import redirect, render
-from pyparsing import empty
 from app1.forms import *
 from app1.models import *
 from app1.models import Data_Users
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 
 # Create your views here.
 
@@ -22,16 +20,17 @@ def create_user(request):
                 form.save()
                 username = form.cleaned_data["username"]
                 password = form.cleaned_data["password1"]
-                InsertId= (User.objects.last()).id
-                Data_Users.objects.create(user_id =InsertId, birthday = request.POST["birthday"], gender = request.POST["gender"], category_id = 1)
-                UsermodelUpdate= User.objects.get(pk=InsertId)
+                user = authenticate(username=username, password=password)
+                login(request, user)
+                Data_Users.objects.create(user_id =request.user.id,
+                    birthday = request.POST["birthday"],
+                    gender = request.POST["gender"],
+                    category_id = 1)
+                UsermodelUpdate = User.objects.get(pk=request.user.id)
                 UsermodelUpdate.first_name = request.POST["first_name"]
                 UsermodelUpdate.last_name = request.POST["last_name"]
                 UsermodelUpdate.email = request.POST["email"]
                 UsermodelUpdate.save()
-                user = authenticate(username=username, password=password)
-                login(request, user)
-                
                 return render(request, "index.html")
             except:
                 User.objects.last().delete()
@@ -39,11 +38,18 @@ def create_user(request):
                 context = {"error":error}
                 return render(request, "create_users.html", context=context)
         elif IntegrityError:
-            print("OK.")
-            exist= True
-            context = {"exist":exist}
-            return render(request, "create_users.html", context=context)
+            if request.POST["password1"] != request.POST["password2"]:
+                print(form.errors)
+                not_match= True
+                context = {"not_match":not_match}
+                return render(request, "create_users.html", context=context)
+            else:
+                print(form.errors)
+                exist= True
+                context = {"exist":exist}
+                return render(request, "create_users.html", context=context)
         else:
+            print(form.errors)
             error = True
             context = {"error":error}
             return render(request, "create_users.html", context=context)
@@ -53,30 +59,32 @@ def create_user(request):
     return render(request, "create_users.html", context=context)
 
 def login_view(request):
-    if request.method == "POST":
-
-        form = AuthenticationForm(request, data = request.POST)
-
-        if form.is_valid():
-
-            usuario = form.cleaned_data.get('username')
-            contra = form.cleaned_data.get('password')
-            
-            user = authenticate(username=usuario, password=contra)
-            
-            if user is not None:
-                login(request, user)
-                context = {"message":f"¡¡Bienvenido {usuario}!! :)"}
-
-                return render(request, "index.html", context=context)
-
-        else:
-            error = True
-            context = {"error":error}
-            return render(request, "login.html", context = context)
-
+    if request.user.is_authenticated:
+        return redirect('home')
     else:
-        return render(request, "login.html")
+        if request.method == "POST":
+
+            form = AuthenticationForm(request, data = request.POST)
+
+            if form.is_valid():
+
+                usuario = form.cleaned_data.get('username')
+                contra = form.cleaned_data.get('password')
+                
+                user = authenticate(username=usuario, password=contra)
+                
+                if user is not None:
+                    login(request, user)
+                    context = {"message":f"¡¡Bienvenido {usuario}!! :)"}
+
+                    return render(request, "index.html", context=context)
+
+            else:
+                error = True
+                context = {"error":error}
+                return render(request, "login.html", context = context)
+        else:
+            return render(request, "login.html")
 
 def search_view(request):
     if request.GET["search"] != (""):
@@ -97,10 +105,9 @@ def search_view(request):
         return render(request, "index.html", context=context)
 
 def categori_users(request):
-    users = User.objects.all().select_related("data_users")
-    cant = User.objects.all().select_related("data_users").count()
-    print(cant)
-    context = {"usuarios":users, "cantidad":cant}
+    users = User.objects.all()
+
+    context = {"usuarios":users}
     return render(request, "all_users.html", context=context)
 
 def categori_business(request):
@@ -152,4 +159,64 @@ def create_business(request):
     return render(request, "create_business.html", context=context)
 
 def profile(request):
-    return render(request, "profile.html")
+
+    if request.method == "POST":
+        form = Edit_form(request.POST)
+        if form.is_valid() and request.POST["password1"]==request.POST["password2"]:
+            try:
+                UsermodelUpdate = User.objects.get(pk=request.user.id)
+                Data_UsermodelUpdate = Data_Users.objects.get(user_id=request.user.id)
+                Data_UsermodelUpdate.gender = request.POST["genero"]
+                filepath = request.FILES.get('image')
+                
+                if request.POST["username"] != "":
+                    UsermodelUpdate.username = request.POST["username"]
+                if request.POST["password1"] != "":
+                    UsermodelUpdate.set_password(form.cleaned_data['password2'])
+                    password_reset = True
+                if request.POST["email"] != "":
+                    UsermodelUpdate.email = form.cleaned_data["email"]
+                if request.POST["first_name"] != "":
+                    UsermodelUpdate.first_name = request.POST["first_name"]
+                if request.POST["last_name"] != "":
+                    UsermodelUpdate.last_name = request.POST["last_name"]
+                if request.POST["username"] != "":
+                    Data_UsermodelUpdate.address = form.cleaned_data["address"]
+                if request.POST["ocupacion"] != "":
+                    Data_UsermodelUpdate.ocupacion = form.cleaned_data["ocupacion"]
+                if request.POST["numero"] != "":
+                    Data_UsermodelUpdate.numero = form.cleaned_data["numero"]
+                if request.POST["pais"] != "":
+                    Data_UsermodelUpdate.pais = form.cleaned_data["pais"]
+                if request.POST["ciudad"] != "":
+                    Data_UsermodelUpdate.ciudad = form.cleaned_data["ciudad"]
+                if filepath:
+                    Data_UsermodelUpdate.image = request.FILES.get("image")
+                
+                UsermodelUpdate.save()
+                Data_UsermodelUpdate.save()
+                success = True
+                context = {"success": success}
+                if password_reset:
+                    count = range(10)
+                    context = {"success": success, "password_reset":password_reset, "count":count}
+                return render(request, "profile.html", context=context)
+            except IntegrityError:
+                exist = True
+                context = {"exist": exist}
+                return render(request, "profile.html", context=context)
+
+        elif form.cleaned_data["password1"] != form.cleaned_data["password2"]:
+            not_match = True
+            context = {"not_match": not_match}
+            return render(request, "profile.html", context=context)
+        else:
+            return render(request, "profile.html")
+    if request.user.is_authenticated:
+        return render(request, "profile.html")
+    else:
+        return redirect('home')
+
+def logout_view(request):
+    logout(request)
+    return redirect('home')
