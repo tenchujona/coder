@@ -1,29 +1,7 @@
-from tabnanny import verbose
 from django.db import models
-from django.contrib.auth.models import User
 from PIL import Image
-from django.core.validators import RegexValidator
-from pyparsing import alphanums
 
 # Create your models here.
-
-class Data_Users(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, max_length=20, unique=True, related_name="related")
-    image = models.ImageField(upload_to="profile_image", default="default_images/anonymous-user.png")
-    gender = models.CharField(
-        max_length=9,
-        choices=[("Masculino", "Masculino"),("Femenino", "Femenino")]
-    )
-    birthday = models.DateField()
-    category = models.ForeignKey("Category", on_delete=models.CASCADE) # asigana una categoria de la clase categoria
-    address = models.CharField(max_length=100, blank=True, null=True)
-    ocupacion = models.CharField(max_length=50, blank=True, null=True)
-    numero = models.CharField(max_length=20, blank=True, null=True, unique=True)
-    pais = models.CharField(max_length=20, blank=True, null=True)
-    ciudad = models.CharField(max_length=20, blank=True, null=True)
-    
-    def __str__(self) -> str:
-        return self.user.username
 
 class Empresas(models.Model):
     name = models.CharField(max_length=70, unique=True, blank=False, null=False)

@@ -42,7 +42,7 @@ BASE_APPS = [
 ]
 
 MY_APPS = [
-    "app1",
+    "app1", 'login', 'profile','user_register',
 ]
 
 THIRD_APPS = [
