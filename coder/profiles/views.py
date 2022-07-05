@@ -2,9 +2,11 @@ from multiprocessing import context
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
+from business.models import Empresas
 from profiles.forms import Edit_Profile_form
 from user_register.models import Data_Users
 from django.db import IntegrityError
+from django.core.exceptions import ObjectDoesNotExist
 
 # Create your views here.
 
@@ -79,8 +81,12 @@ def categori_users(request):
     return render(request, "all_users.html", context=context)
 
 def profile_view(request, username):
-    print(username)
-    user = User.objects.get(username=username)
-    context = {'usuario':user}
-    return render(request, "user_profile_view.html", context=context)
-
+    try:
+        user = User.objects.get(username=username)
+        id = user.id
+        bussines_registered = Empresas.objects.get(user_asocied_id=id)
+        context = {'usuario':user, 'business':bussines_registered}
+        return render(request, "user_profile_view.html", context=context)
+    except ObjectDoesNotExist:
+        context = {'usuario':user}
+        return render(request, "user_profile_view.html", context=context)
