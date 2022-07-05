@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}
+Categoría: Empresas
+{% endblock %}
+
+{% block content %}
+    <h1 class="text-center" style="margin: 20px 0px; font-size: 75px;">Todas las Empresas:</h1>
+    {% for empresas in business %}
+            <div class="card" style="width:15cm; margin:0 auto; margin-bottom: 10px; border-radius: 20px;">
+                <img class="card-img-top" src="{{empresas.image.url}}" alt="Foto de perfil de usuario" style="border-radius: 20px;">
+                <div class="card-body">
+                    <h1 class="card-title" style="font-style: italic;"><u>{{empresas.name}}</u></h5>
+                    <p class="card-text"><strong>CEO:</strong> {{empresas.CEO}}</p>
+                    <p class="card-text"><strong>Correo:</strong> {{empresas.email}}</p>
+                    <p class="card-text"><strong>Ubicación:</strong> {{empresas.ubicacion}}</p>
+                    <p class="card-text"><strong>Número:</strong> {{empresas.numero}}</p>
+                    <a href="/business/business-profile/{{empresas.name}}" class="btn btn-primary" style="position: absolute;top:94.7%;right: 0;margin-right: 25px;border-radius: 9px;width: auto;transform: translateY(-50%);">contactar a {{empresas.name}}</a>
+                </div>
+            </div>
+    {% endfor %}
+{% endblock %}

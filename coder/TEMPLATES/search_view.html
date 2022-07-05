@@ -2,31 +2,35 @@
 
 {% block content %}
     <div class="user-card-group">
-        <h1 class="text-center" style="margin: 20px 0px; font-size: 75px;">Resultados de la busqueda:</h1>
+        <h1 class="text-center" style="margin: 20px 0px; font-size: 75px; margin-bottom: 5vh;">Resultados de la busqueda:</h1>
         <div class="user-card-group-inner">
+            <h2><u>Usuarios:</u></h2>
             {% for usuario in user %}
-                <div class="card" style="width: 18rem;">
-                    <img class="card-img-top" src="{{usuario.related.image.url}}" alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title">{{usuario.first_name}} {{usuario.last_name}}</h5>
-                        <p class="card-text">Username: {{usuario.username}}</p>
-                        <p class="card-text">Correo: {{usuario.email}}</p>
-                        <p class="card-text">Nacimiento: {{usuario.related.birthday}}</p>
-                        <p class="card-text">Género: {{usuario.related.gender}}</p>
-                        <a href="#" class="btn btn-primary">Añadir como amigo</a>
+                <div style="width: auto;">
+                    <div class="card" style="width: 12cm; margin:0 auto; margin-bottom: 10px; border-radius: 20px; margin-top: 5vh;">
+                        <img class="card-img-top" src="{{usuario.related.image.url}}" alt="Foto de perfil de usuario" style="border-radius: 20px;">
+                        <div class="card-body" style="width: 12cm;">
+                            <h5 class="card-title">{{usuario.first_name}} {{usuario.last_name}}</h5>
+                            <p class="card-text">Username: {{usuario.username}}</p>
+                            <p class="card-text">Correo: {{usuario.email}}</p>
+                            <p class="card-text">Nacimiento: {{usuario.related.birthday}}</p>
+                            <p class="card-text">Género: {{usuario.related.gender}}</p>
+                            <a href="/accounts/profile/{{usuario.username}}" class="btn btn-primary" style="margin-left: 6.5cm; margin-top: 2.6cm;">Ver perfil de {{usuario.username}}</a>
+                        </div>
                     </div>
                 </div>
             {% endfor %}
-            {% for empresa in business %}
-                <div class="card" style="width: 30rem; height: 25rem;">
-                    <img class="card-img-top" src="{{empresa.image.url}}" alt="Card image cap">
+            <h2 style="margin-top: 5vh;"><u>Empresas:</u></h2>
+            {% for empresas in business %}
+                <div class="card" style="width:12cm; margin:0 auto; margin-bottom: 10px; border-radius: 20px; margin-top: 5vh;">
+                    <img class="card-img-top" src="{{empresas.image.url}}" alt="Foto de perfil de usuario" style="border-radius: 20px;">
                     <div class="card-body">
-                        <h5 class="card-title">{{empresa.name}}</h5>
-                        <p class="card-text">CEO: {{empresa.CEO}}</p>
-                        <p class="card-text">Correo: {{empresa.email}}</p>
-                        <p class="card-text">Nacimiento: {{empresa.ubicacion}}</p>
-                        <p class="card-text">Número: {{empresa.numero}}</p>
-                        <a href="#" class="btn btn-primary">Contactar a {{empresa.name}}</a>
+                        <h1 class="card-title" style="font-style: italic;"><u>{{empresas.name}}</u></h5>
+                        <p class="card-text"><strong>CEO:</strong> {{empresas.CEO}}</p>
+                        <p class="card-text"><strong>Correo:</strong> {{empresas.email}}</p>
+                        <p class="card-text"><strong>Ubicación:</strong> {{empresas.ubicacion}}</p>
+                        <p class="card-text"><strong>Número:</strong> {{empresas.numero}}</p>
+                        <a href="/business/business-profile/{{empresas.name}}" class="btn btn-primary" style="position: absolute;top:94.7%;right: 0;margin-right: 25px;border-radius: 9px;width: auto;transform: translateY(-50%);">contactar a {{empresas.name}}</a>
                     </div>
                 </div>
             {% endfor %}

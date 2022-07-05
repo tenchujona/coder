@@ -1,9 +1,13 @@
+from multiprocessing import context
 from django.shortcuts import render
 from django.contrib.auth.models import User
-from business.models import Empresas
+from business.models import Empresas, Tag
+from django.template import Template, Context
 
 def home(request):
-    return render(request, 'index.html')
+    tags = Tag.objects.all()
+    context = {"tags":tags}
+    return render(request, 'index.html', context=context)
 
 def search_view(request):
     if request.GET["search"] != (""):

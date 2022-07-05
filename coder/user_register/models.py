@@ -21,13 +21,18 @@ class Data_Users(models.Model):
     numero = models.CharField(max_length=20, blank=True, null=True, unique=True)
     pais = models.CharField(max_length=20, blank=True, null=True)
     ciudad = models.CharField(max_length=20, blank=True, null=True)
+
+    __original_name = None
     
+    def __init__(self, *args, **kwargs):
+            super().__init__(*args, **kwargs)
+            self.__original_name = self.image
+
     def __str__(self) -> str:
         return self.user.username
 
-    def save(self, *args, **kwargs):
-        if self.image != "default_images/anonymous-user.png":
-            print(self.image,"<-- IMAGEN NAME")
+    def save(self, force_insert=False, force_update=False, *args, **kwargs):
+        if self.image != "default_images/anonymous-user.png" and self.image != self.__original_name:
             #Abre el archivo
             im = Image.open(self.image)
 
@@ -43,6 +48,6 @@ class Data_Users(models.Model):
             #Cambia el campo del archivo por el nuevo archivo modificado
             self.image = InMemoryUploadedFile(output,'ImageField', "%s.jpg" %self.image.name.split('.')[0], 'image/jpeg', sys.getsizeof(output), None)
 
-            super(Data_Users,self).save(*args, **kwargs)
+            super().save(force_insert, force_update, *args, **kwargs)
         else:
             super().save(*args, **kwargs)

@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block title %}
-Categoría: Usuarios
+Empresea {{empresa.name}}
 {% endblock %}
 
 {% block content %}
@@ -10,7 +10,8 @@ Categoría: Usuarios
         border:5px solid rgba(44, 43, 43, 0.247);
         border-radius: 20px;
         height: 270px;
-        width:270px;
+        min-width:270px;
+        max-width:500px;
     }
 </style>
 <h2 style="text-align: center; margin-top: 5vh;"><u>!Estas viendo el perfil de la empresa {{empresa.name}}!</u></h2>
@@ -45,11 +46,11 @@ Categoría: Usuarios
         </div>
         <div class="form-row">
             <div class="form-group col-md-4">
-                <label for="inputAddress2">Ocupación</label>
-                {% if empresa.ocupacion == None %}
+                <label for="inputAddress2">Categorías</label>
+                {% if empresa.ocupacion != None %}
                     <input readonly type="text" class="form-control" name="ocupacion" value="Esta empresa no ha definido su ocupación">
                 {% else %}
-                    <input readonly type="text" class="form-control" name="ocupacion" value="{{empresa.ocupacion}}">
+                    <input readonly type="text" class="form-control" name="ocupacion" value="{{empresa.category}}{% for tag in tags %}, {{tag}}{% endfor %}">
                 {% endif %}
             </div>
             <div class="form-group col-md-4">

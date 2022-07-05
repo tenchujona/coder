@@ -1,0 +1,176 @@
+{% extends "base.html" %}
+
+{% block title %}
+Categoría: Usuarios
+{% endblock %}
+
+{% block content %}
+{% if error %}
+  <div class="alert alert-warning alert-dismissible fade show" role="alert">
+    <strong>¡Lo sentimos!</strong> Ha ocurrido un error inesperado, por favor recargue la página y vuelva a intentarlo. <strong>Nota:</strong> Recuerde usar los caracteres correctos en cada campo.
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+{% elif exist %}
+  <div class="alert alert-warning alert-dismissible fade show" role="alert">
+    <strong>¡Oh no!</strong> parece que el nombre de usuario que escogiste <strong>ya existe</strong>, algunos datos se guardaron. Por favor intente con otro nombre de usuario.
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div> 
+{% elif success %}
+  <div class="alert alert-warning alert-dismissible fade show" role="alert">
+    <strong>¡Bien hecho!</strong> Los datos de tu perfil se actualizaron correctamente. <strong>NOTA:</strong> Algunos datos necesitan recargar la página para ser visibles.
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+{% elif not_exist %}
+  <div class="alert alert-warning alert-dismissible fade show" role="alert">
+    <strong>¡Vaya!</strong> Parece que aún no haz creado una empresa,<strong> <a href="/business/create-business/" class="alert-link">puedes hacerlo desde aquí</a></strong>.
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+{% endif %}
+<style>
+    .image-preview {
+        width: 290px;
+        height: 257px;
+        border:5px solid rgba(44, 43, 43, 0.247);
+        border-radius: 20px;
+
+        /* Default text */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        color: rgba(44, 43, 43, 0.247);
+    }
+
+    .image-preview__image {
+        display: none;
+        width: 100%;
+        height: 100%;
+        border-radius: 13px;
+    }
+
+    .profile-image {
+        border:5px solid rgba(44, 43, 43, 0.247);
+        border-radius: 20px;
+        height: 290px;
+        width:290px;
+    }
+</style>
+{% if not not_exist %}
+<h2 style="text-align: center; margin-top: 2.5vh;"><u>!Estas viendo el perfil de la empresa {{empresa.name}}!</u></h2>
+<div style="margin-left: 3cm; margin-right: 3cm; margin-top: 2.5vh;">
+    <form style="padding: 15px 15px; background-color:#e9e8ff; border-radius: 10px;" method="POST" enctype= multipart/form-data>
+        {% csrf_token %}
+        <div class="form-row">
+            <div class="form-group col-md-4">
+            <label for="inputEmail4">Nombre de la empresa</label>
+            <input type="text" class="form-control" name="name" placeholder="Ingrese el nombre de la empresa" value="{{empresa.name}}">           
+            <label for="inputPassword4" style="margin-top: 15px">Biografía</label>
+            <textarea type="password" class="form-control" name="biografia" placeholder="Ingrese una breve biografia de la empresa" rows="6">{{empresa.biografia}}</textarea>
+            </div>
+            <div class="form-group col-md-4" >
+                <div style="margin-right: auto; margin-left: auto; width: 290px;">
+                  <input type="file" name="image" id="image" accept="image/*">
+                  <div class="image-preview" id="imagePreview">
+                    <img src="" alt="Image Preview" class="image-preview__image">
+                    <span class="image-preview__default-text">Image Preview</span>
+                  </div>
+                </div>  
+              </div>
+              <div class="form-group col-md-4">
+                <div style="margin-right: auto; margin-left: auto; width: 290px;">
+                  <img class="profile-image" src="{{empresa.image.url}}" alt="Foto de perfil de usuario">
+                </div>
+              </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="inputAddress">Nombres del CEO</label>
+                <input type="text" class="form-control" name="CEO" placeholder="Ingrese el nombre del CEO de la empresa" value="{{empresa.CEO}}">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="inputAddress">Email</label>
+                <input type="email" class="form-control" name="email" placeholder="Ingrese el email de contacto de la empresa" value="{{empresa.email}}">
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                <label for="inputAddress2">Categoría principal</label>
+                    <input type="text" class="form-control" name="ocupacion" value="{{empresa.category}}">
+            </div>
+            <div class="form-group col-md-4">
+                <label for="inputAddress2">Número telefónico</label>
+                {% if empresa.numero == None %}
+                    <input type="tel" class="form-control" name="numero" pattern="[0-9-+() ]{1,20}" placeholder="Ingrese el número de contacto de la empresa" value="Esta empresa no ha definido su número telefónico">
+                {% else %}
+                    <input type="tel" class="form-control" name="numero" pattern="[0-9-+() ]{1,20}" placeholder="Ingrese el número de contacto de la empresa" value="{{empresa.numero}}">
+                {% endif %}
+            </div>
+            <div class="form-group col-md-4">
+                <label for="inputAddress">Dirección</label>
+                {% if empresa.ubicacion == None %}
+                    <input type="text" class="form-control" name="ubicacion" placeholder="Ingrese la dirección de la empresa" value="Esta empresa no ha definido su dirección">
+                {% else %}
+                    <input type="text" class="form-control" name="ubicacion" placeholder="Ingrese la dirección de la empresa" value="{{empresa.ubicacion}}">
+                {% endif %}
+            </div>
+        </div>
+        <div class="form-group">
+          <label for="inputState">Categorías</label>
+          <select class="form-select" name="tags" multiple aria-label="multiple select example">
+            {% for tag in tags %}<option value="{{tag.id}}">{{tag}}</option>{% endfor %}
+          </select>
+          <small><strong>Consejo:</strong> Usa la tecla ctrl o manten pulsado click izquierdo para seleccionar multiples tag</small>
+        </div>
+        <div class="form-group">
+            <label for="inputState">Estado</label>
+            <select name="estado" class="form-control">
+              {% if empresa.active == False %}
+                <option selected>Suspendido</option>
+                <option>Activo</option>
+              {% else %}
+                <option selected>Activo</option>
+                <option>Suspendido</option>
+              {% endif %}
+            </select>
+          </div>
+        <button type="submit" class="btn btn-primary">Guardar cambios</button>
+    </form>
+</div>
+{% endif %}
+<script>
+    const image = document.getElementById("image");
+    const previewContainer = document.getElementById("imagePreview");
+    const previewImage = previewContainer.querySelector(".image-preview__image");
+    const previewDefaultText = previewContainer.querySelector(".image-preview__default-text");
+  
+    image.addEventListener("change", function(){
+      const file = this.files[0];
+  
+      if (file) {
+        const reader = new FileReader();
+  
+        previewDefaultText.style.display = "none";
+        previewImage.style.display = "block";
+  
+        reader.addEventListener("load", function() {
+          console.log(this);
+          previewImage.setAttribute("src", this.result);
+        });
+  
+        reader.readAsDataURL(file);
+      } else {
+        previewDefaultText.style.display = null;
+        previewImage.style.display = null;
+        previewImage.setAttribute("src", "");
+      }
+    });
+  </script>
+{% endblock %}
