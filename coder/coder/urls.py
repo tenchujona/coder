@@ -21,6 +21,7 @@ from django.urls import path, include
 
 from coder.views import home, search_view
 from business.views import *
+from profiles.views import profile_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),

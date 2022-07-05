@@ -16,10 +16,9 @@ Categoría: Usuarios
                     <p class="card-text">Correo: {{usuario.email}}</p>
                     <p class="card-text">Nacimiento: {{usuario.related.birthday}}</p>
                     <p class="card-text">Género: {{usuario.related.gender}}</p>
-                    <a href="#" class="btn btn-primary" style="margin-left: 6.5cm; margin-top: 2.6cm;">Ver perfil de {{usuario.username}}</a>
+                    <a href="/accounts/profile/{{usuario.username}}" class="btn btn-primary" style="margin-left: 6.5cm; margin-top: 2.6cm;">Ver perfil de {{usuario.username}}</a>
                 </div>
             </div>
         </div>
-        
     {% endfor %}
 {% endblock %}

@@ -1,3 +1,5 @@
+from multiprocessing import context
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from profiles.forms import Edit_Profile_form
@@ -68,7 +70,17 @@ def edit_profile(request):
         return redirect('home')
 
 def categori_users(request):
-    users = User.objects.all()
+    if request.method == 'POST':
+        data = request.POST["user"]
+        request.session['data']=data
 
+    users = User.objects.all()
     context = {"usuarios":users}
     return render(request, "all_users.html", context=context)
+
+def profile_view(request, username):
+    print(username)
+    user = User.objects.get(username=username)
+    context = {'usuario':user}
+    return render(request, "user_profile_view.html", context=context)
+

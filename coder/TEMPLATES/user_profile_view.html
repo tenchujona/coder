@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}
+Categoría: Usuarios
+{% endblock %}
+
+{% block content %}
+    <div style="width: auto;">
+        <div class="card" style="width: 12cm; margin:0 auto; margin-bottom: 10px; border-radius: 20px;">
+            <img class="card-img-top" src="{{usuario.related.image.url}}" alt="Foto de perfil de usuario" style="border-radius: 20px;">
+            <div class="card-body" style="width: 12cm;">
+                <h5 class="card-title">{{usuario.first_name}} {{usuario.last_name}}</h5>
+                <p class="card-text">Username: {{usuario.username}}</p>
+                <p class="card-text">Correo: {{usuario.email}}</p>
+                <p class="card-text">Nacimiento: {{usuario.related.birthday}}</p>
+                <p class="card-text">Género: {{usuario.related.gender}}</p>
+                <a href="" class="btn btn-primary" style="margin-left: 6.5cm; margin-top: 2.6cm;">Ver perfil de {{usuario.username}}</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}
