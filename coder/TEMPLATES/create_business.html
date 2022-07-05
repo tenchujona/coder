@@ -29,14 +29,14 @@ Crear: Empresa
       <div class="form-row">
         <div class="col-md-6 mb-3">
           <label for="validationCustom01">Nombre de la Empresa</label>
-          <input type="text" class="form-control" name="name" value="For example S.A.C." required>
+          <input type="text" class="form-control" name="name" placeholder="For example S.A.C." required>
           <div class="valid-feedback">
             Looks good!
           </div>
         </div>
         <div class="col-md-6 mb-3">
           <label for="exampleInputEmail1">Email de contacto de la Empresa</label>
-          <input type="email" class="form-control" name="email" aria-describedby="emailHelp" value="forexample@email.com" required>
+          <input type="email" class="form-control" name="email" aria-describedby="emailHelp" placeholder="forexample@email.com" required>
           <small id="emailHelp" class="form-text text-muted">No compartiremos sus datos con nadie.</small>
         </div class="valid-feedback">
       </div>
@@ -44,7 +44,7 @@ Crear: Empresa
       <div class="form-row">
         <div class="col-md-6 mb-3">
           <label for="validationCustom03">Nombre completo del CEO de la Empresa</label>
-          <input type="text" class="form-control" name="CEO" required>
+          <input type="text" class="form-control" name="CEO" placeholder="{{request.user.get_full_name}}" required>
           <div class="invalid-feedback">
             Please provide a valid name.
           </div>

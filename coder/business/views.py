@@ -1,8 +1,8 @@
 from django.db import IntegrityError
 from django.shortcuts import redirect, render
-from platformdirs import user_cache_dir
 from business.forms import *
 from business.models import Empresas
+from django.contrib.auth.models import User
 
 # Create your views here.
 
@@ -59,3 +59,12 @@ def create_business(request):
         return render(request, "create_business.html", context=context)
     else:
         return redirect('home')
+
+def business_profile_view(request, empresa):
+
+    business = Empresas.objects.get(name=empresa)
+    user_id = business.user_asocied_id
+    user = User.objects.get(pk=user_id)
+    print(business.ubicacion)
+    context = {'empresa':business, 'user':user}
+    return render(request, "business_profile_view.html", context=context)

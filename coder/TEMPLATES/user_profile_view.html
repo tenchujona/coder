@@ -13,7 +13,7 @@ Categoría: Usuarios
         width:270px;
     }
 </style>
-<h2 style="text-align: center; margin-top: 5vh;"><u>!Estas viendo el perfil de {{request.user.username}}!</u></h2>
+<h2 style="text-align: center; margin-top: 5vh;"><u>!Estas viendo el perfil de {{usuario}}!</u></h2>
 <div style="margin-left: 3cm; margin-right: 3cm; margin-top: 5vh;">
     <form style="padding: 15px 15px; background-color:#e9e8ff; border-radius: 10px;">
         <div class="form-row">
@@ -99,7 +99,7 @@ Categoría: Usuarios
 </div>
 {% if business %}
     <h2 style="text-align: center; margin-top: 5vh;"><u>Empresas creadas por este usuario</u></h2>
-    <div class="card" style="width:15cm; margin:0 auto; margin-bottom: 10px; border-radius: 20px;">
+    <div class="card" style="width:15cm; margin:0 auto; margin-bottom: 10px; border-radius: 20px; margin-top: 5vh;">
         <img class="card-img-top" src="{{business.image.url}}" alt="Foto de perfil de usuario" style="border-radius: 20px;">
         <div class="card-body">
             <h1 class="card-title" style="font-style: italic;"><u>{{business.name}}</u></h5>
@@ -107,7 +107,7 @@ Categoría: Usuarios
             <p class="card-text"><strong>Correo:</strong> {{business.email}}</p>
             <p class="card-text"><strong>Ubicación:</strong> {{business.ubicacion}}</p>
             <p class="card-text"><strong>Número:</strong> {{business.numero}}</p>
-            <a href="#" class="btn btn-primary" style="position: absolute;top:94.7%;right: 0;margin-right: 25px;border-radius: 9px;width: auto;transform: translateY(-50%);">contactar a {{business.name}}</a>
+            <a href="/business/business-profile/{{business.name}}" class="btn btn-primary" style="position: absolute;top:94.7%;right: 0;margin-right: 25px;border-radius: 9px;width: auto;transform: translateY(-50%);">contactar a {{business.name}}</a>
         </div>
     </div>
 {% endif %}

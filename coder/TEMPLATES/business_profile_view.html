@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+
+{% block title %}
+Categoría: Usuarios
+{% endblock %}
+
+{% block content %}
+<style>
+    .profile-image {
+        border:5px solid rgba(44, 43, 43, 0.247);
+        border-radius: 20px;
+        height: 270px;
+        width:270px;
+    }
+</style>
+<h2 style="text-align: center; margin-top: 5vh;"><u>!Estas viendo el perfil de la empresa {{empresa.name}}!</u></h2>
+<div style="margin-left: 3cm; margin-right: 3cm; margin-top: 5vh;">
+    <form style="padding: 15px 15px; background-color:#e9e8ff; border-radius: 10px;">
+        <div class="form-row">
+            <div class="form-group col-md-6">
+            <label for="inputEmail4">Nombre de la empresa</label>
+            <input readonly type="text" class="form-control" name="usuarioname" value="{{empresa.name}}">           
+            <label for="inputPassword4" style="margin-top: 15px">Biografía</label>
+            {% if empresa.ocupacion == None %}
+                <textarea readonly type="password" class="form-control" name="password2" rows="6" placeholder="Esta empresa no ha definido su biografía"></textarea>
+            {% else %}
+                <textarea readonly type="password" class="form-control" name="password2" rows="6">{{empresa.biografia}}</textarea>
+            {% endif %}
+            </div>
+            <div class="form-group col-md-6">
+            <div style="margin-right: auto; margin-left: auto; width: 320px;">
+                <img class="profile-image" src="{{empresa.image.url}}" alt="Foto de perfil de usuario">
+            </div>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="inputAddress">Nombres del CEO</label>
+                <input readonly type="text" class="form-control" name="first_name" value="{{empresa.CEO}}">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="inputAddress">Email</label>
+                <input readonly type="email" class="form-control" name="email" value="{{empresa.email}}">
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                <label for="inputAddress2">Ocupación</label>
+                {% if empresa.ocupacion == None %}
+                    <input readonly type="text" class="form-control" name="ocupacion" value="Esta empresa no ha definido su ocupación">
+                {% else %}
+                    <input readonly type="text" class="form-control" name="ocupacion" value="{{empresa.ocupacion}}">
+                {% endif %}
+            </div>
+            <div class="form-group col-md-4">
+                <label for="inputAddress2">Número telefónico</label>
+                {% if empresa.numero == None %}
+                    <input readonly type="tel" class="form-control" name="numero" pattern="[0-9-+() ]{1,20}" value="Esta empresa no ha definido su número telefónico">
+                {% else %}
+                    <input readonly type="tel" class="form-control" name="numero" pattern="[0-9-+() ]{1,20}" value="{{empresa.numero}}">
+                {% endif %}
+            </div>
+            <div class="form-group col-md-4">
+                <label for="inputAddress">Dirección</label>
+                {% if empresa.ubicacion == None %}
+                    <input readonly type="text" class="form-control" name="address" value="Esta empresa no ha definido su dirección">
+                {% else %}
+                    <input readonly type="text" class="form-control" name="address" value="{{empresa.ubicacion}}">
+                {% endif %}
+            </div>
+        </div>
+    </form>
+</div>
+{% if user %}
+    <h2 style="text-align: center; margin-top: 5vh;"><u>Empresa creada por el usuario</u></h2>
+    <div style="width: auto;">
+        <div class="card" style="width: 12cm; margin:0 auto; margin-bottom: 10px; border-radius: 20px; margin-top: 5vh;">
+            <img class="card-img-top" src="{{user.related.image.url}}" alt="Foto de perfil de usuario" style="border-radius: 20px;">
+            <div class="card-body" style="width: 12cm;">
+                <h5 class="card-title">{{user.first_name}} {{user.last_name}}</h5>
+                <p class="card-text">Username: {{user.username}}</p>
+                <p class="card-text">Correo: {{user.email}}</p>
+                <p class="card-text">Nacimiento: {{user.related.birthday}}</p>
+                <p class="card-text">Género: {{user.related.gender}}</p>
+                <a href="/accounts/profile/{{user.username}}" class="btn btn-primary" style="margin-left: 6.5cm; margin-top: 2.6cm;">Ver perfil de {{user.username}}</a>
+            </div>
+        </div>
+    </div>
+{% endif %}
+{% endblock %}

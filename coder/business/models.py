@@ -26,7 +26,7 @@ class Empresas(models.Model):
         return self.name+" [Nombre de la Empresa]"
 
     def save(self, *args, **kwargs):
-        if self.image != "default_images/anonymous-user.png":
+        if self.image != "default_images/anonymous-business.png":
             print(self.image,"<-- IMAGEN NAME")
             #Abre el archivo
             im = Image.open(self.image)

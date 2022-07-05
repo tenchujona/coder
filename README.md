@@ -8,6 +8,7 @@ La pagina funciona como un blog donde podes registrarte y tambien buscar usuario
 - Edición de perfil de usario, se puede añadir más datos del usario <br />
 - Si no estas logeado no puedes entrar en la página de perfil <br />
 - Si cambias la contraseña se cerrará tu sesión y serás redireccionado a la página de login <br />
+- Se puede visualizar los perfiles de los usuarios y empresas <br />
 
 **Usuario no staff**: Monica<br />
 **Contraseña**: testuser<br />

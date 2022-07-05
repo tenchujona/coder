@@ -83,6 +83,7 @@ def categori_users(request):
 def profile_view(request, username):
     try:
         user = User.objects.get(username=username)
+        print(user.related.gender)
         id = user.id
         bussines_registered = Empresas.objects.get(user_asocied_id=id)
         context = {'usuario':user, 'business':bussines_registered}

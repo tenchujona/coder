@@ -1,8 +1,9 @@
-from django.urls import path
+from django.urls import path, re_path
 
 from business.views import *
 
 urlpatterns = [
     path('all-business/', categori_business, name="mostrar empresas"),
     path('create-business/', create_business, name="crear una empresa"),
+    re_path(r'^business-profile/(?P<empresa>[\w|\W]+)/$', business_profile_view, name="mostrar perfil de emmpresa"),
 ]
