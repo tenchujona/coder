@@ -1,5 +1,6 @@
 from django.db import models
 from PIL import Image
+from django.contrib.auth.models import User
 
 # Create your models here.
 
@@ -11,6 +12,7 @@ class Empresas(models.Model):
     numero = models.CharField(max_length=20, unique=True)
     image = models.ImageField(upload_to="business_image", default="default_images/anonymous-business.png")
     category = models.ForeignKey("Category", on_delete=models.CASCADE, related_name="Empresas")
+    user_asocied=models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_asocied")
     active = models.BooleanField(default=True, null=True)
 
     class Meta:

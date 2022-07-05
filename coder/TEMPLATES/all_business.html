@@ -24,6 +24,13 @@ Categoría: Empresas
                     <a href="#" class="btn btn-primary" style="position: absolute;top:94.7%;right: 0;margin-right: 25px;border-radius: 9px;width: auto;transform: translateY(-50%);">contactar a {{new_content.name}}</a>
                 </div>
             </div>
+    {% elif error %}
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <strong>¡Oh no!</strong> se acaba de generar un eror, por favor recargue la página, si el problema persiste contacte con un administrador.
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
     {% endif %}
     <h1 class="text-center" style="margin: 20px 0px; font-size: 75px;">Todas las Empresas:</h1>
     {% for empresas in business %}

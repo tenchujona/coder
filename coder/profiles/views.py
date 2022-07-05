@@ -16,6 +16,7 @@ def edit_profile(request):
                     Data_UsermodelUpdate = Data_Users.objects.get(user_id=request.user.id)
                     Data_UsermodelUpdate.gender = request.POST["genero"]
                     filepath = request.FILES.get('image')
+                    password_reset=False
                     
                     if request.POST["username"] != "":
                         UsermodelUpdate.username = request.POST["username"]

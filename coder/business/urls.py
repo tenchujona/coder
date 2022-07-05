@@ -1,6 +1,6 @@
 from django.urls import path
 
-from app1.views import *
+from business.views import *
 
 urlpatterns = [
     path('all-business/', categori_business, name="mostrar empresas"),

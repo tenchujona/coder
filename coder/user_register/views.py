@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from user_register.forms import Account_form
+from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login
 from user_register.models import Data_Users
 from django.contrib.auth.models import User
@@ -9,8 +9,8 @@ from django.db import IntegrityError
 
 def register(request):
     if request.method == "POST":
-        form = Account_form(request.POST)
-        
+        form = UserCreationForm(request.POST)
+        print(form.errors)
         if form.is_valid():
 
             try:
@@ -19,15 +19,16 @@ def register(request):
                 password = form.cleaned_data["password1"]
                 user = authenticate(username=username, password=password)
                 login(request, user)
-                Data_Users.objects.create(user_id =request.user.id,
-                    birthday = request.POST["birthday"],
-                    gender = request.POST["gender"],
-                    category_id = 1)
                 UsermodelUpdate = User.objects.get(pk=request.user.id)
                 UsermodelUpdate.first_name = request.POST["first_name"]
                 UsermodelUpdate.last_name = request.POST["last_name"]
                 UsermodelUpdate.email = request.POST["email"]
                 UsermodelUpdate.save()
+                Data_Users.objects.create(
+                    user_id = request.user.id,
+                    birthday = request.POST["birthday"],
+                    gender = request.POST["gender"],
+                    category_id = 1)
                 return render(request, "index.html")
             except:
                 User.objects.last().delete()
@@ -51,6 +52,6 @@ def register(request):
             context = {"error":error}
             return render(request, "create_users.html", context=context)
 
-    form = Account_form()
+    form = UserCreationForm()
     context = {"form":form}
     return render(request, "create_users.html", context=context)

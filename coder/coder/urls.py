@@ -20,12 +20,12 @@ from django.urls import path, include
 
 
 from coder.views import home, search_view
-from app1.views import *
+from business.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home, name="home"),
-    path('business/', include("app1.urls"), name="extends url"),
+    path('business/', include("business.urls"), name="extends url"),
     path('buscar/', search_view, name="buscar"),
     path('accounts/', include('user_register.urls'), name="extends url"),
     path('accounts/', include('login.urls'), name="extends url"),

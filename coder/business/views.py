@@ -1,12 +1,10 @@
 from django.db import IntegrityError
 from django.shortcuts import redirect, render
-from app1.forms import *
-from app1.models import *
-from django.contrib.auth.models import User
+from platformdirs import user_cache_dir
+from business.forms import *
+from business.models import Empresas
 
 # Create your views here.
-
-
 
 def categori_business(request):
     business = Empresas.objects.all()
@@ -17,9 +15,10 @@ def create_business(request):
     if request.user.is_authenticated:
         if request.method == "POST":
             form = Empresa_form(data=request.POST, files=request.FILES)
+            print(form)
             if form.is_valid():
                 try:
-                    print(request.FILES)
+                    print(request.user.id)
                     filepath = request.FILES.get('image') # VERIFICA SI SE ENVIARON ARCHIVOS - SI MultiValueDict CONTIENE EL IMAGE ES VERDAD
                     if filepath:
                         new_content = Empresas.objects.create(
@@ -30,6 +29,7 @@ def create_business(request):
                             numero = form.cleaned_data["numero"],
                             category_id = 2,
                             image = form.cleaned_data["image"],
+                            user_asocied_id = request.user.id,
                         )
                     else:
                         new_content = Empresas.objects.create(
@@ -39,6 +39,7 @@ def create_business(request):
                             ubicacion = form.cleaned_data["ubicacion"],
                             numero = form.cleaned_data["numero"],
                             category_id = 2,
+                            user_asocied_id = request.user.id,
                         )
                     business = Empresas.objects.all()
                     context = {"new_content":new_content, "business":business}

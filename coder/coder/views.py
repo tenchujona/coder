@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.contrib.auth.models import User
-from app1.models import Empresas
+from business.models import Empresas
 
 def home(request):
     return render(request, 'index.html')
