@@ -1,6 +1,9 @@
+import sys
 from django.db import models
 from PIL import Image
 from django.contrib.auth.models import User
+from django.core.files.uploadedfile import InMemoryUploadedFile
+from io import BytesIO
 
 # Create your models here.
 
@@ -22,15 +25,27 @@ class Empresas(models.Model):
     def __str__(self) -> str:
         return self.name+" [Nombre de la Empresa]"
 
-    def save(self, *args, **kwargs): #Redimensiona la imagen
-        super().save(*args, **kwargs)  # Guardar la imagen
+    def save(self, *args, **kwargs):
+        if self.image != "default_images/anonymous-user.png":
+            print(self.image,"<-- IMAGEN NAME")
+            #Abre el archivo
+            im = Image.open(self.image)
 
-        img = Image.open(self.image.path) # Abre el archivo usando self
+            output = BytesIO()
 
-        if img.height > 300 or img.width > 300:
-            output_size = (300, 300)
-            img.thumbnail(output_size)
-            img.save(self.image.path)  # Guarda la imagen en el mismo path
+            #Modifica el archivo para redimencionarlo
+            im = im.resize( (250,250) )
+
+            #Guarda el archivo
+            im.save(output, format='JPEG', quality=100)
+            output.seek(0)
+
+            #Cambia el campo del archivo por el nuevo archivo modificado
+            self.image = InMemoryUploadedFile(output,'ImageField', "%s.jpg" %self.image.name.split('.')[0], 'image/jpeg', sys.getsizeof(output), None)
+
+            super(Empresas,self).save(*args, **kwargs)
+        else:
+            super().save(*args, **kwargs)
 
 class Category(models.Model):
     name = models.CharField(max_length=30)

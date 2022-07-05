@@ -80,7 +80,7 @@
                 {% endif %}
               </ul>
                 <div class="user-image">
-                    <a href="/accounts/my-profile/"><img src="{{request.user.related.image.url}}" style="height: 3rem;"></a>
+                    <a href="/accounts/my-profile/"><img src="{{request.user.related.image.url}}" style="height: 3rem; width: 3rem;"></a>
                 </div>
                 <form class="form-inline my-2 my-lg-0" action="/buscar/" method="GET">
                     <input class="form-control mr-sm-2" type="txt" placeholder="Encuentre lo que busca" name="search" aria-label="Search">
