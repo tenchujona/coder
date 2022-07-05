@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import authenticate, login, logout
+from business.models import Tag
 
 # Create your views here.
 
@@ -25,10 +26,13 @@ def login_view(request):
 
             else:
                 error = True
-                context = {"error":error}
+                tags = Tag.objects.all()
+                context = {"error":error, "tags":tags}
                 return render(request, "login.html", context = context)
         else:
-            return render(request, "login.html")
+            tags = Tag.objects.all()
+            context = {"tags":tags}
+            return render(request, "login.html", context = context)
 
 def logout_view(request):
     logout(request)

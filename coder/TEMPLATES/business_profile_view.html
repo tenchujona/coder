@@ -47,11 +47,7 @@ Empresea {{empresa.name}}
         <div class="form-row">
             <div class="form-group col-md-4">
                 <label for="inputAddress2">Categorías</label>
-                {% if empresa.ocupacion != None %}
-                    <input readonly type="text" class="form-control" name="ocupacion" value="Esta empresa no ha definido su ocupación">
-                {% else %}
-                    <input readonly type="text" class="form-control" name="ocupacion" value="{{empresa.category}}{% for tag in tags %}, {{tag}}{% endfor %}">
-                {% endif %}
+                <input readonly type="text" class="form-control" name="ocupacion" value="{{empresa.category}}{% for tag in tags_profile %}, {{tag}}{% endfor %}">
             </div>
             <div class="form-group col-md-4">
                 <label for="inputAddress2">Número telefónico</label>

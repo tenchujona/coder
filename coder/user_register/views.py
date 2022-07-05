@@ -4,6 +4,7 @@ from django.contrib.auth import authenticate, login
 from user_register.models import Data_Users
 from django.contrib.auth.models import User
 from django.db import IntegrityError
+from business.models import Tag
 
 # Create your views here.
 
@@ -33,25 +34,30 @@ def register(request):
             except:
                 User.objects.last().delete()
                 error = True
-                context = {"error":error}
+                tags = Tag.objects.all()
+                context = {"error":error, "tags":tags}
                 return render(request, "create_users.html", context=context)
         elif IntegrityError:
             if request.POST["password1"] != request.POST["password2"]:
                 print(form.errors)
                 not_match= True
-                context = {"not_match":not_match}
+                tags = Tag.objects.all()
+                context = {"not_match":not_match, "tags":tags}
                 return render(request, "create_users.html", context=context)
             else:
                 print(form.errors)
                 exist= True
-                context = {"exist":exist}
+                tags = Tag.objects.all()
+                context = {"exist":exist, "tags":tags}
                 return render(request, "create_users.html", context=context)
         else:
             print(form.errors)
             error = True
-            context = {"error":error}
+            tags = Tag.objects.all()
+            context = {"error":error, "tags":tags}
             return render(request, "create_users.html", context=context)
 
     form = UserCreationForm()
-    context = {"form":form}
+    tags = Tag.objects.all()
+    context = {"form":form, "tags":tags}
     return render(request, "create_users.html", context=context)

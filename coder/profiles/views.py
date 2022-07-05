@@ -7,6 +7,7 @@ from profiles.forms import Edit_Profile_form
 from user_register.models import Data_Users
 from django.db import IntegrityError
 from django.core.exceptions import ObjectDoesNotExist
+from business.models import Tag
 
 # Create your views here.
 
@@ -49,25 +50,32 @@ def edit_profile(request):
                     UsermodelUpdate.save()
                     Data_UsermodelUpdate.save()
                     success = True
-                    context = {"success": success}
+                    tags = Tag.objects.all()
+                    context = {"success": success, "tags":tags}
                     if password_reset:
+                        tags = Tag.objects.all()
                         count = range(10)
-                        context = {"success": success, "password_reset":password_reset, "count":count}
+                        context = {"success": success, "password_reset":password_reset, "count":count, "tags":tags}
                     return render(request, "profile.html", context=context)
                 except IntegrityError:
                     exist = True
-                    context = {"exist": exist}
+                    tags = Tag.objects.all()
+                    context = {"exist": exist, "tags":tags}
                     return render(request, "profile.html", context=context)
             elif form.cleaned_data["password1"] != form.cleaned_data["password2"]:
                 not_match = True
-                context = {"not_match": not_match}
+                tags = Tag.objects.all()
+                context = {"not_match": not_match, "tags":tags}
                 return render(request, "profile.html", context=context)
             else:
                 error = True
-                context = {"error": error}
+                tags = Tag.objects.all()
+                context = {"error": error, "tags":tags}
                 return render(request, "profile.html")
         else:
-            return render(request, "profile.html")
+            tags = Tag.objects.all()
+            context = {"tags": tags}
+            return render(request, "profile.html", context=context)
     else:
         return redirect('home')
 

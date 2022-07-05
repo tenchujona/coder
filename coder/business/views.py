@@ -11,7 +11,8 @@ from django.shortcuts import get_object_or_404
 
 def categori_business(request):
     business = Empresas.objects.all()
-    context = {"business":business}
+    tags = Tag.objects.all()
+    context = {"business":business, "tags":tags}
     return render(request, "all_business.html", context=context)
 
 def create_business(request):
@@ -45,20 +46,24 @@ def create_business(request):
                             user_asocied_id = request.user.id,
                         )
                     business = Empresas.objects.all()
-                    context = {"new_content":new_content, "business":business}
+                    tags = Tag.objects.all()
+                    context = {"new_content":new_content, "business":business, "tags":tags}
                     return render(request, "all_business.html", context=context)
                 except IntegrityError:
                     exists = True
-                    context = {"exists":exists}
+                    tags = Tag.objects.all()
+                    context = {"exists":exists, "tags":tags}
                     return render(request, "create_business.html", context=context)
             else:
                 print(form.errors)
                 error = True
-                context = {"error":error}
+                tags = Tag.objects.all()
+                context = {"error":error, "tags":tags}
                 return render(request, "create_business.html", context=context)
 
         form = Empresa_form()
-        context = {"form":form}
+        tags = Tag.objects.all()
+        context = {"form":form, "tags":tags}
         return render(request, "create_business.html", context=context)
     else:
         return redirect('home')
@@ -69,8 +74,9 @@ def business_profile_view(request, empresa):
     user_id = business.user_asocied_id
     user = User.objects.get(pk=user_id)
     tag = Tag.objects.filter(tag_category=business.id)
+    tags = Tag.objects.all()
 
-    context = {'empresa':business, 'user':user, 'tags':tag}
+    context = {'empresa':business, 'user':user, 'tags_profile':tag, 'tags':tags}
     return render(request, "business_profile_view.html", context=context)
 
 def edit_business(request):
@@ -129,5 +135,6 @@ def edit_business(request):
 def categoryview(request, cats):
     tag_obj = get_object_or_404(Tag, pk=Tag.objects.get(name=cats).id)
     business = Empresas.objects.filter(tag=tag_obj)
-    context = {'business':business}
+    tags = Tag.objects.all()
+    context = {'business':business, 'tags':tags}
     return render(request, 'category.html', context)

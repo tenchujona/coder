@@ -19,10 +19,11 @@ def search_view(request):
             CEO__icontains = request.GET["search"],
             email__icontains = request.GET["search"],
             )
-
-        context = {"user":user, "business":business}
+        tags = Tag.objects.all()
+        context = {"user":user, "business":business, "tags":tags}
         return render(request, "search_view.html", context=context)
     else:
         empty = True
-        context = {"empty":empty}
+        tags = Tag.objects.all()
+        context = {"empty":empty, "tags":tags}
         return render(request, "index.html", context=context)
