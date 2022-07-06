@@ -1,6 +1,7 @@
 # CODERHOUSER PROYECTO FINAL
 La pagina funciona como un blog donde podes registrarte y tambien buscar usuarios o empresas a travez de la barra de busqueda. Cuenta con un login para ingresar y tambien una pagina de inicio.
 
+- **Algunas vistas te redireccionan si no estas registrado.**
 - Para crear un perfil de empresa debe registarse y estar logeado en la pagina<br />
 - Se puede ver las categorias y separarlos<br />
 - Se peude buscar por nombres, email o nombre de usuario<br />
@@ -19,14 +20,16 @@ La pagina funciona como un blog donde podes registrarte y tambien buscar usuario
 LAS PAGINAS SON:
 
 http://127.0.0.1:8000/<br />
-http://127.0.0.1:8000/login/<br />
-http://127.0.0.1:8000/all-users/<br />
-http://127.0.0.1:8000/all-business/<br />
-http://127.0.0.1:8000/create-business/<br />
-http://127.0.0.1:8000/create-user/<br />
-http://127.0.0.1:8000/buscar/<br />
-http://127.0.0.1:8000/about<br />
-http://127.0.0.1:8000/my-profile/<br />
-http://127.0.0.1:8000/my-profile/<br />
-http://127.0.0.1:8000/my-profile/<br />
-http://127.0.0.1:8000/my-profile/<br />
+http://127.0.0.1:8000/about/<br />
+http://127.0.0.1:8000/business/create-business/<br />
+http://127.0.0.1:8000/business/edit-business/<br />
+http://127.0.0.1:8000/accounts/all-users/<br />
+http://127.0.0.1:8000/business/all-business/<br />
+http://127.0.0.1:8000/business/category/Tecnologia/<br />
+http://127.0.0.1:8000/accounts/my-profile/<br />
+http://127.0.0.1:8000/admin/<br />
+http://127.0.0.1:8000/accounts/login/<br />
+http://127.0.0.1:8000/accounts/signup/<br />
+
+# Trabajo de integrantes:
+- Jorge Luis Moreno Moller: hice modelos, forms, templates, views, algunos estilos con css, implementacion de imagenes, barra de busqueda.
