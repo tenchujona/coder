@@ -9,6 +9,15 @@ from io import BytesIO
 
 # Create your models here.
 
+class About(models.Model):
+    img = models.ImageField(upload_to="default_images", default="default_images/pagina-web.jpg")
+
+    def __str__(self) -> str:
+        return 'Imagen para la rout about'
+
+    class Meta:
+        verbose_name = "Imagen para la rout about"
+
 class Empresas(models.Model):
     name = models.CharField(max_length=70, unique=True, blank=False, null=False)
     CEO = models.CharField(max_length=70)

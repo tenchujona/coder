@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}
+Acerca de nosotros
+{% endblock %}
+
+{% block content %}
+<div class="card text-center">
+    <div class="card-header">
+      Acerca de Nosotros
+    </div>
+    <div style="height: 15cm; width: 22cm;">
+      <h5 class="card-title" style="text-align:center; margin-top: 2vh" >Encuentra lo que Buscas</h5>
+      <p class="card-text">Encuentra lo que buscas es una página para crear un perfil de tu empresa y publicitarla.</p>
+      <img src="{% for image in img %} {{image.img.url}} {% endfor %}" class="card-text" alt="Imagen" style="border-radius: 10px; max-width: 20cm;">
+      <a href="/" class="btn btn-primary" style="margin-top: 2vh">Volver al incio</a>
+    </div>
+    <div class="card-footer text-muted">
+      2 days ago
+    </div>
+</div>
+{% endblock %}

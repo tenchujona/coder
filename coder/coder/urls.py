@@ -19,12 +19,13 @@ from django.contrib import admin
 from django.urls import path, include
 
 
-from coder.views import home, search_view
+from coder.views import home, search_view, about
 from business.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home, name="home"),
+    path('about/', about, name="acerca de"),
     path('business/', include("business.urls"), name="extends url"),
     path('buscar/', search_view, name="buscar"),
     path('accounts/', include('user_register.urls'), name="extends url"),

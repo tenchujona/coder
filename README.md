@@ -25,4 +25,8 @@ http://127.0.0.1:8000/all-business/<br />
 http://127.0.0.1:8000/create-business/<br />
 http://127.0.0.1:8000/create-user/<br />
 http://127.0.0.1:8000/buscar/<br />
+http://127.0.0.1:8000/about<br />
+http://127.0.0.1:8000/my-profile/<br />
+http://127.0.0.1:8000/my-profile/<br />
+http://127.0.0.1:8000/my-profile/<br />
 http://127.0.0.1:8000/my-profile/<br />

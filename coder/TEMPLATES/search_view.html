@@ -4,7 +4,9 @@
     <div class="user-card-group">
         <h1 class="text-center" style="margin: 20px 0px; font-size: 75px; margin-bottom: 5vh;">Resultados de la busqueda:</h1>
         <div class="user-card-group-inner">
+            {% if user %}
             <h2><u>Usuarios:</u></h2>
+            {% endif %}
             {% for usuario in user %}
                 <div style="width: auto;">
                     <div class="card" style="width: 12cm; margin:0 auto; margin-bottom: 10px; border-radius: 20px; margin-top: 5vh;">
@@ -20,7 +22,9 @@
                     </div>
                 </div>
             {% endfor %}
+            {% if business %}
             <h2 style="margin-top: 5vh;"><u>Empresas:</u></h2>
+            {% endif %}
             {% for empresas in business %}
                 <div class="card" style="width:12cm; margin:0 auto; margin-bottom: 10px; border-radius: 20px; margin-top: 5vh;">
                     <img class="card-img-top" src="{{empresas.image.url}}" alt="Foto de perfil de usuario" style="border-radius: 20px;">

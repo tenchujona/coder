@@ -26,7 +26,7 @@ def edit_profile(request):
                     filepath = request.FILES.get('image')
                     password_reset=False
 
-                    if request.POST['delete']:
+                    if request.POST.getlist('delete') !=[]:
                         UsermodelUpdate.delete()
                         return redirect('home')
                     if request.POST["username"] != "":
