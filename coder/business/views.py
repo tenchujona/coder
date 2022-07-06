@@ -83,11 +83,14 @@ def edit_business(request):
     try:
         if request.method == 'POST':
             form = Empresa_form(data=request.POST)
-            
+            print(request.POST.getlist('delete'))
             if form.is_valid():
                 BusinessUpdate = Empresas.objects.get(user_asocied_id=request.user.id)
                 filepath = request.FILES.get('image')
 
+                if request.POST.getlist('delete') !=[]:
+                    BusinessUpdate.delete()
+                    return redirect('editar mi empresa')
                 if request.POST["name"] != "":
                     BusinessUpdate.name = form.cleaned_data["name"]
                 if request.POST["biografia"] != "":
@@ -104,21 +107,18 @@ def edit_business(request):
                     BusinessUpdate.active = True
                 if request.POST["estado"] != "Activo":
                     BusinessUpdate.active = False
-                if request.POST["tags"] != None:
+                if request.POST.getlist('tags') !=[]:
                     BusinessUpdate.tag.set(request.POST.getlist('tags'))
                 if filepath and BusinessUpdate.image != request.FILES.get("image"):
-                    print('CAMBIO DE IMAGEN')
-                    print(BusinessUpdate.image)
                     BusinessUpdate.image = request.FILES.get("image")
 
                 BusinessUpdate.save()
                 business = Empresas.objects.get(user_asocied_id=request.user.id)
-                tags = Tag.objects.all()
+                tags = Tag.objects.all()#TODOS LOS TAGS PARA EL BASE.HTML
                 success = True
                 context = {"success": success, 'business':business, 'tags':tags}
-                return redirect('crear una empresa')
+                return redirect('editar mi empresa')
             else:
-                print(form.errors)
                 error = True
                 context = {"error": error}
                 return render(request, 'business.html', context=context)

@@ -17,12 +17,18 @@ def edit_profile(request):
             form = Edit_Profile_form(request.POST)
             if form.is_valid() and request.POST["password1"]==request.POST["password2"]:
                 try:
+
+                   
+                    print()
                     UsermodelUpdate = User.objects.get(pk=request.user.id)
                     Data_UsermodelUpdate = Data_Users.objects.get(user_id=request.user.id)
                     Data_UsermodelUpdate.gender = request.POST["genero"]
                     filepath = request.FILES.get('image')
                     password_reset=False
-                    
+
+                    if request.POST['delete']:
+                        UsermodelUpdate.delete()
+                        return redirect('home')
                     if request.POST["username"] != "":
                         UsermodelUpdate.username = request.POST["username"]
                     if request.POST["password1"] != "":
@@ -49,6 +55,7 @@ def edit_profile(request):
                     
                     UsermodelUpdate.save()
                     Data_UsermodelUpdate.save()
+                    
                     success = True
                     tags = Tag.objects.all()
                     context = {"success": success, "tags":tags}

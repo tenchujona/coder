@@ -73,7 +73,11 @@ Categoría: Usuarios
             <label for="inputEmail4">Nombre de la empresa</label>
             <input type="text" class="form-control" name="name" placeholder="Ingrese el nombre de la empresa" value="{{empresa.name}}">           
             <label for="inputPassword4" style="margin-top: 15px">Biografía</label>
+            {% if empresa.biografia == None %}
+            <textarea type="password" class="form-control" name="biografia" placeholder="Ingrese una breve biografia de la empresa" rows="6"></textarea>
+            {% else %}
             <textarea type="password" class="form-control" name="biografia" placeholder="Ingrese una breve biografia de la empresa" rows="6">{{empresa.biografia}}</textarea>
+            {% endif %}
             </div>
             <div class="form-group col-md-4" >
                 <div style="margin-right: auto; margin-left: auto; width: 290px;">
@@ -103,14 +107,14 @@ Categoría: Usuarios
         <div class="form-row">
             <div class="form-group col-md-4">
                 <label for="inputAddress2">Categoría principal</label>
-                    <input type="text" class="form-control" name="ocupacion" value="{{empresa.category}}">
+                  <input type="text" class="form-control" name="ocupacion" value="{{empresa.category}}">
             </div>
             <div class="form-group col-md-4">
                 <label for="inputAddress2">Número telefónico</label>
                 {% if empresa.numero == None %}
-                    <input type="tel" class="form-control" name="numero" pattern="[0-9-+() ]{1,20}" placeholder="Ingrese el número de contacto de la empresa" value="Esta empresa no ha definido su número telefónico">
+                  <input type="tel" class="form-control" name="numero" pattern="[0-9-+() ]{1,20}" placeholder="Ingrese el número de contacto de la empresa" value="Esta empresa no ha definido su número telefónico">
                 {% else %}
-                    <input type="tel" class="form-control" name="numero" pattern="[0-9-+() ]{1,20}" placeholder="Ingrese el número de contacto de la empresa" value="{{empresa.numero}}">
+                  <input type="tel" class="form-control" name="numero" pattern="[0-9-+() ]{1,20}" placeholder="Ingrese el número de contacto de la empresa" value="{{empresa.numero}}">
                 {% endif %}
             </div>
             <div class="form-group col-md-4">
@@ -124,7 +128,7 @@ Categoría: Usuarios
         </div>
         <div class="form-group">
           <label for="inputState">Categorías</label>
-          <select class="form-select" name="tags" multiple aria-label="multiple select example">
+          <select class="form-control" name="tags" multiple aria-label="multiple select example">
             {% for tag in tags %}<option value="{{tag.id}}">{{tag}}</option>{% endfor %}
           </select>
           <small><strong>Consejo:</strong> Usa la tecla ctrl o manten pulsado click izquierdo para seleccionar multiples tag</small>
@@ -142,6 +146,7 @@ Categoría: Usuarios
             </select>
           </div>
         <button type="submit" class="btn btn-primary">Guardar cambios</button>
+        <button type="submit" name="delete" value="delete-account" class="btn btn-danger" style="margin-left: 35.4cm;">Eliminar mi cuenta</button>
     </form>
 </div>
 {% endif %}
