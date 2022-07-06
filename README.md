@@ -33,3 +33,7 @@ http://127.0.0.1:8000/accounts/signup/<br />
 
 # Trabajo de integrantes:
 - Jorge Luis Moreno Moller: hice modelos, forms, templates, views, algunos estilos con css, implementacion de imagenes, barra de busqueda.
+
+# Video
+
+[![Watch the video](https://img.youtube.com/vi/NV4YUbjqx5Q/maxresdefault.jpg)](https://youtu.be/NV4YUbjqx5Q)
