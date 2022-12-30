@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.contrib.auth.models import User
 from business.models import Empresas, Tag
 from business.models import About
+from django.http import HttpResponse
 
 def home(request):
     tags = Tag.objects.all()
@@ -31,3 +32,7 @@ def about(request):
     print(img)
     context = {"tags":tags, "img":img}
     return render(request, "about.html", context=context)
+
+def test_health(request):
+    users = User.objects.all()
+    return HttpResponse('OK')

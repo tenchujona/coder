@@ -19,7 +19,7 @@ from django.contrib import admin
 from django.urls import path, include
 
 
-from coder.views import home, search_view, about
+from coder.views import home, search_view, about, test_health
 from business.views import *
 
 urlpatterns = [
@@ -31,6 +31,7 @@ urlpatterns = [
     path('accounts/', include('user_register.urls'), name="extends url"),
     path('accounts/', include('login.urls'), name="extends url"),
     path('accounts/', include('profiles.urls'), name="extends url"),
+    path('healthserv/', test_health, name="extends url"),
 ]
 
 #IMAGES
