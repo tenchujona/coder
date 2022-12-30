@@ -60,7 +60,7 @@ class Empresas(models.Model):
             im = im.resize( (250,250) )
 
             #Guarda el archivo
-            im.save(output, format='JPEG', quality=100)
+            im.convert('RGB').save(output, format='JPEG', quality=100)
             output.seek(0)
 
             #Cambia el campo del archivo por el nuevo archivo modificado
